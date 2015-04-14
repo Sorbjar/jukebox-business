@@ -9,7 +9,6 @@ import javax.persistence.Query;
 import be.lode.general.repository.Repository;
 import be.lode.jukebox.business.Jukebox;
 
-//TODO testing
 public class JukeboxRepository extends Repository<Jukebox> {
 
 	public JukeboxRepository(EntityManagerFactory emf) {

@@ -9,7 +9,6 @@ import javax.persistence.Query;
 import be.lode.general.repository.Repository;
 import be.lode.jukebox.business.Account;
 
-//TODO testing
 public class AccountRepository extends Repository<Account> {
 
 	public AccountRepository(EntityManagerFactory emf) {
@@ -27,4 +26,5 @@ public class AccountRepository extends Repository<Account> {
 		commitTransaction();
 		return accountList;
 	}
+
 }

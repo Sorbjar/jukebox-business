@@ -18,7 +18,6 @@ import be.lode.jukebox.business.enums.Role;
 @Entity
 @Table(name = "Jukebox")
 public class Jukebox {
-	// FIXME need to persist
 	@ElementCollection(fetch = FetchType.LAZY)
 	@JoinTable(name = "Jukebox_AccountRoles")
 	@Enumerated(EnumType.STRING)

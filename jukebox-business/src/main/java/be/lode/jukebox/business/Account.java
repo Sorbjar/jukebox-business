@@ -8,11 +8,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Account")
 public class Account {
+	private String emailAddress;
+	private String firstName;
 	@Id
 	@GeneratedValue
 	private long id;
-	private String emailAddress;
-	private String firstName;
 	private String lastName;
 	private String serviceId;
 	private String serviceName;

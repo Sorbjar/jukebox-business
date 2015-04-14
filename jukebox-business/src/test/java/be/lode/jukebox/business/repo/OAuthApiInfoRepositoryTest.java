@@ -1,6 +1,9 @@
 package be.lode.jukebox.business.repo;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -24,58 +27,78 @@ public class OAuthApiInfoRepositoryTest {
 	}
 
 	@Test
-	public void testOAuthApiInfoRepository() {
-		Repository<OAuthApiInfo> oaaiRepo = new OAuthApiInfoRepository(emf);
+	public void testDelete() {
+		Repository<OAuthApiInfo> repo = new OAuthApiInfoRepository(emf);
+		OAuthApiInfo o = new OAuthApiInfo("TestNameDelete",
+				"FacebookApiDelete", "TestKeyDelete", "TestSecretDelete",
+				"TestURLDelete");
+		o = repo.save(o);
+		assertTrue("save OAuthApiInfo", repo.getList().contains(o));
+		assertEquals("save OAuthApiInfo", o, repo.find(o));
+		repo.delete(o);
+		assertFalse("delete OAuthApiInfo", repo.getList().contains(o));
+		assertNull("delete OAuthApiInfo", repo.find(o));
+	}
 
-		List<OAuthApiInfo> list = oaaiRepo.getList();
-		assertNotNull("getList not null", list);
-		assertTrue("getList - list not empty", list.size() > 0);
-		OAuthApiInfo o = new OAuthApiInfo("TestName", "FacebookApi", "TestKey",
-				"TestSecret", "TestURL");
-		oaaiRepo.save(o);
-		assertTrue("save OAuthApiInfo", oaaiRepo.getList().contains(o));
+	@Test
+	public void testFindClassOfTObject() {
+		Repository<OAuthApiInfo> repo = new OAuthApiInfoRepository(emf);
+		OAuthApiInfo o = new OAuthApiInfo("TestNameFindObj",
+				"FacebookApiFindObj", "TestKeyFindObj", "TestSecretFindObj",
+				"TestURLFindObj");
+		o = repo.save(o);
+		assertEquals("find OAuthApiInfo", o, repo.find(o));
+	}
+
+	@Test
+	public void testFindT() {
+		Repository<OAuthApiInfo> repo = new OAuthApiInfoRepository(emf);
+		OAuthApiInfo o = new OAuthApiInfo("TestNameFindT", "FacebookApiFindT",
+				"TestKeyFindT", "TestSecretFindT", "TestURLFindT");
+		o = repo.save(o);
+		assertEquals("find OAuthApiInfo", o, repo.find(OAuthApiInfo.class, emf
+				.getPersistenceUnitUtil().getIdentifier(o)));
 	}
 
 	@Test
 	public void testGetList() {
-		Repository<OAuthApiInfo> oaaiRepo = new OAuthApiInfoRepository(emf);
-		assertNotNull("getList not null", oaaiRepo.getList());
-		assertTrue("getList - list not empty", oaaiRepo.getList().size() > 0);
-
+		Repository<OAuthApiInfo> repo = new OAuthApiInfoRepository(emf);
+		assertNotNull("getList not null", repo.getList());
+		assertTrue("getList - list not empty", repo.getList().size() > 0);
 	}
 
 	@Test
-	public void testSaveOAuthApiInfo() {
-		OAuthApiInfoRepository oaaiRepo = new OAuthApiInfoRepository(emf);
-		OAuthApiInfo o = new OAuthApiInfo("TestName", "FacebookApi", "TestKey",
-				"TestSecret", "TestURL");
-		oaaiRepo.save(o);
-		assertTrue("save OAuthApiInfo", oaaiRepo.getList().contains(o));
+	public void testOAuthApiInfoRepository() {
+		OAuthApiInfoRepository repo = new OAuthApiInfoRepository(emf);
+		List<OAuthApiInfo> list = repo.getList();
+		assertNotNull("getList not null", list);
+		assertTrue("getList - list not empty", list.size() > 0);
+
+		OAuthApiInfo o = new OAuthApiInfo("TestNameRepo", "FacebookApiRepo",
+				"TestKeyRepo", "TestSecretRepo", "TestURLRepo");
+		repo.save(o);
+		assertTrue("save OAuthApiInfo", repo.getList().contains(o));
 	}
 
 	@Test
 	public void testRepository() {
-		Repository<OAuthApiInfo> rep = new OAuthApiInfoRepository(emf);
-		OAuthApiInfo o = new OAuthApiInfo("TestName", "FacebookApi", "TestKey",
-				"TestSecret", "TestURL");
-		rep.save(o);
-		assertTrue("save OAuthApiInfo", rep.getList().contains(o));
+		Repository<OAuthApiInfo> repo = new OAuthApiInfoRepository(emf);
+		List<OAuthApiInfo> list = repo.getList();
+		assertNotNull("getList not null", list);
+		assertTrue("getList - list not empty", list.size() > 0);
+		OAuthApiInfo o = new OAuthApiInfo("TestNameARepo", "FacebookApiARepo",
+				"TestKeyARepo", "TestSecretARepo", "TestURLARepo");
+		repo.save(o);
+		assertTrue("save OAuthApiInfo", repo.getList().contains(o));
 	}
 
 	@Test
-	public void testGetListAbstract() {
-		Repository<OAuthApiInfo> rep = new OAuthApiInfoRepository(emf);
-		assertNotNull("getList not null", rep.getList());
-		assertTrue("getList - list not empty", rep.getList().size() > 0);
+	public void testSave() {
+		Repository<OAuthApiInfo> repo = new OAuthApiInfoRepository(emf);
+		OAuthApiInfo o = new OAuthApiInfo("TestNameSave", "FacebookApiSave",
+				"TestKeySave", "TestSecretSave", "TestURLSave");
+		o = repo.save(o);
+		assertTrue("save OAuthApiInfo", repo.getList().contains(o));
+		assertEquals("save OAuthApiInfo", o, repo.find(o));
 	}
-
-	@Test
-	public void testSaveT() {
-		Repository<OAuthApiInfo> rep = new OAuthApiInfoRepository(emf);
-		OAuthApiInfo o = new OAuthApiInfo("TestName", "FacebookApi", "TestKey",
-				"TestSecret", "TestURL");
-		rep.save(o);
-		assertTrue("save OAuthApiInfo", rep.getList().contains(o));
-	}
-
 }

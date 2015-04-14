@@ -10,18 +10,6 @@ import be.lode.jukebox.business.enums.Role;
 public class JukeboxTest {
 
 	@Test
-	public void testEquals() {
-		EqualsVerifier.forClass(Jukebox.class).usingGetClass().verify();
-	}
-
-	@Test
-	public void testJukebox() {
-		Account acc = new Account("a", "b", "c", "d", "e");
-		Jukebox o = new Jukebox("jbName", acc);
-		assertEquals("getName Expecting jbName", "jbName", o.getName());
-	}
-
-	@Test
 	public void testAddAccountRole() {
 
 		Account acc = new Account("a", "b", "c", "d", "e");
@@ -40,5 +28,17 @@ public class JukeboxTest {
 		o.addAccountRole(acc2, Role.Administrator);
 		assertEquals("new account is of type Administrator",
 				Role.Administrator, o.getAccountRoles().get(acc2));
+	}
+
+	@Test
+	public void testEquals() {
+		EqualsVerifier.forClass(Jukebox.class).usingGetClass().verify();
+	}
+
+	@Test
+	public void testJukebox() {
+		Account acc = new Account("a", "b", "c", "d", "e");
+		Jukebox o = new Jukebox("jbName", acc);
+		assertEquals("getName Expecting jbName", "jbName", o.getName());
 	}
 }

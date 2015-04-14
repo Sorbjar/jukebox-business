@@ -26,6 +26,6 @@ public class SetupDBData {
 		JukeboxRepository jRepo = new JukeboxRepository(emf);
 		Jukebox jb = new Jukebox("jbName", acc);
 		jb = jRepo.save(jb);
-		jRepo.delete(jb);
+		//jRepo.delete(jb);
 	}
 }
