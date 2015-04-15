@@ -18,7 +18,7 @@ import be.lode.jukebox.business.enums.Role;
 @Entity
 @Table(name = "Jukebox")
 public class Jukebox {
-	@ElementCollection(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.EAGER)
 	@JoinTable(name = "Jukebox_AccountRoles")
 	@Enumerated(EnumType.STRING)
 	private Map<Account, Role> accountRoles;
@@ -28,6 +28,7 @@ public class Jukebox {
 	private String name;
 
 	public Jukebox() {
+		super();
 	}
 
 	public Jukebox(String name, Account account) {

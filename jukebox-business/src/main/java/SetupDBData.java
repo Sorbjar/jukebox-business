@@ -11,6 +11,10 @@ import be.lode.jukebox.business.repo.OAuthApiInfoRepository;
 public class SetupDBData {
 
 	public static void main(String[] args) {
+		run();
+	}
+
+	public static void run() {
 		EntityManagerFactory emf;
 		emf = Persistence.createEntityManagerFactory("jukebox-business");
 		OAuthApiInfoRepository oaaiRepo = new OAuthApiInfoRepository(emf);
@@ -20,12 +24,18 @@ public class SetupDBData {
 		oaaiRepo.save(facebook);
 
 		AccountRepository aRepo = new AccountRepository(emf);
-		Account acc = new Account("a", "b", "c", "d", "e");
-		acc = aRepo.save(acc);
-		
+
+		Account lod = new Account("lode.deckers@gmail.com", "Lode", "Deckers",
+				"10153294269263586", "facebook");
+
+		lod = aRepo.save(lod);
+
 		JukeboxRepository jRepo = new JukeboxRepository(emf);
-		Jukebox jb = new Jukebox("jbName", acc);
+		Jukebox jb = new Jukebox("jbName", lod);
 		jb = jRepo.save(jb);
-		//jRepo.delete(jb);
+		jRepo.delete(jb);
+
+		Jukebox ljb = new Jukebox("lodBox", lod);
+		ljb = jRepo.save(ljb);
 	}
 }
