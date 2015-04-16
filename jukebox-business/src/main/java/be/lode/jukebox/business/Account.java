@@ -60,6 +60,10 @@ public class Account {
 		return firstName;
 	}
 
+	public long getId() {
+		return id;
+	}
+
 	public String getLastName() {
 		return lastName;
 	}
@@ -89,6 +93,10 @@ public class Account {
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public void setLastName(String lastName) {
