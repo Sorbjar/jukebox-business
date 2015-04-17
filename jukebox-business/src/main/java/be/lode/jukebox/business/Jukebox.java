@@ -38,6 +38,13 @@ public class Jukebox {
 		this.addAccountRole(account, Role.Administrator);
 	}
 
+	public Jukebox(Account account) {
+		super();
+		this.name = "Unnamed jukebox";
+		this.accountRoles = new HashMap<Account, Role>();
+		this.addAccountRole(account, Role.Administrator);
+	}
+
 	public void addAccountRole(Account account, Role role) {
 		if (this.accountRoles.containsKey(account))
 			accountRoles.replace(account, role);
@@ -63,6 +70,10 @@ public class Jukebox {
 		return accountRoles;
 	}
 
+	public long getId() {
+		return id;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -73,6 +84,10 @@ public class Jukebox {
 		int result = 1;
 		result = prime * result + (int) (id ^ (id >>> 32));
 		return result;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public void setName(String name) {
