@@ -1,6 +1,7 @@
 package be.lode.jukebox.business;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.ElementCollection;
@@ -26,6 +27,11 @@ public class Jukebox {
 	@GeneratedValue
 	private long id;
 	private String name;
+	private List<Playlist> savedPlaylists;
+
+	public List<Playlist> getSavedPlaylists() {
+		return savedPlaylists;
+	}
 
 	public Jukebox() {
 		super();
