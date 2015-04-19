@@ -24,8 +24,11 @@ public class LibraryTest {
 		ClearThenSetupDBData.run();
 	}
 
+	private String libpath;
+
 	@Before
 	public void setUp() throws Exception {
+		libpath = "C:\\Users\\lod\\Dropbox\\JukeboxSongs\\";
 	}
 
 	@After
@@ -35,7 +38,8 @@ public class LibraryTest {
 	@Test
 	public void testAddSong() {
 		Library lib = new Library();
-		String testPath = "D:\\Users\\Lode\\JukeboxSongs\\U_Can_Unlearn_Guitar_-_18_-_The_fireflies.mp3";
+		String testPath = libpath
+				+ "U_Can_Unlearn_Guitar_-_18_-_The_fireflies.mp3";
 		assertNotNull("Library songcollection not null", lib.getSongs());
 		assertEquals("Library is empty", 0, lib.getSongs().size());
 		lib.addSong(testPath);
@@ -43,7 +47,7 @@ public class LibraryTest {
 
 		// test file not found
 		Library lib2 = new Library();
-		testPath = "D:\\Users\\Lode\\NotJukeboxSongs\\test1.mp3";
+		testPath = "C:\\fout\\test1.mp3";
 		assertNotNull("Library songcollection not null", lib2.getSongs());
 		assertEquals("Library is empty", 0, lib2.getSongs().size());
 		lib2.addSong(testPath);
@@ -53,9 +57,8 @@ public class LibraryTest {
 	@Test
 	public void testResyncLibrary() {
 		Library lib = new Library();
-		String libPath = "D:\\Users\\Lode\\JukeboxSongs\\";
-		lib.setPath(libPath);
-		assertEquals(libPath, lib.getPath());
+		lib.setPath(libpath);
+		assertEquals(libpath, lib.getPath());
 		assertNotNull("Library songcollection not null", lib.getSongs());
 		assertEquals("Library is empty", 0, lib.getSongs().size());
 		lib.resyncLibrary();
@@ -63,7 +66,8 @@ public class LibraryTest {
 
 		// incorrect metadata
 		Library lib2 = new Library();
-		String testPath = "D:\\Users\\Lode\\JukeboxSongs\\The_Agrarians_-_02_-_Sincerity_It_Moves_with_Me.mp3";
+		String testPath = libpath
+				+ "The_Agrarians_-_02_-_Sincerity_It_Moves_with_Me.mp3";
 		assertNotNull("Library songcollection not null", lib2.getSongs());
 		assertEquals("Library is empty", 0, lib2.getSongs().size());
 		lib2.addSong(testPath);
