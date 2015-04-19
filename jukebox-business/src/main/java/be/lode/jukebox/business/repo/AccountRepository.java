@@ -7,7 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
 import be.lode.general.repository.Repository;
-import be.lode.jukebox.business.Account;
+import be.lode.jukebox.business.model.Account;
 
 public class AccountRepository extends Repository<Account> {
 

@@ -1,9 +1,12 @@
-package be.lode.jukebox.business;
+package be.lode.jukebox.business.model;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,9 +15,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
-import be.lode.jukebox.business.enums.Role;
+import be.lode.jukebox.business.model.enums.Role;
 
 @Entity
 @Table(name = "Jukebox")
@@ -25,29 +29,35 @@ public class Jukebox {
 	private Map<Account, Role> accountRoles;
 	@Id
 	@GeneratedValue
+	@Column(name = "JukeboxID")
 	private long id;
 	private String name;
-	private List<Playlist> savedPlaylists;
-
-	public List<Playlist> getSavedPlaylists() {
-		return savedPlaylists;
-	}
+	@ElementCollection(fetch = FetchType.EAGER)
+	@JoinTable(name = "Jukebox_SavedPlaylists")
+	@OrderBy("name")
+	private SortedSet<Playlist> savedPlaylists;
 
 	public Jukebox() {
 		super();
+		constructCollections();
 	}
 
-	public Jukebox(String name, Account account) {
-		super();
-		this.name = name;
+	private void constructCollections() {
 		this.accountRoles = new HashMap<Account, Role>();
-		this.addAccountRole(account, Role.Administrator);
+		this.savedPlaylists = new TreeSet<Playlist>();
 	}
 
 	public Jukebox(Account account) {
 		super();
+		constructCollections();
 		this.name = "Unnamed jukebox";
-		this.accountRoles = new HashMap<Account, Role>();
+		this.addAccountRole(account, Role.Administrator);
+	}
+
+	public Jukebox(String name, Account account) {
+		super();
+		constructCollections();
+		this.name = name;
 		this.addAccountRole(account, Role.Administrator);
 	}
 
@@ -82,6 +92,10 @@ public class Jukebox {
 
 	public String getName() {
 		return name;
+	}
+
+	public Set<Playlist> getSavedPlaylists() {
+		return savedPlaylists;
 	}
 
 	@Override

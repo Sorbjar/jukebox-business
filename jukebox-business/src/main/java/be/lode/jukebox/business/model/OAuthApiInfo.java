@@ -1,4 +1,4 @@
-package be.lode.jukebox.business;
+package be.lode.jukebox.business.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

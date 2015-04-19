@@ -1,13 +1,25 @@
-package be.lode.jukebox.business;
+package be.lode.jukebox.business.model;
 
 import static org.junit.Assert.assertEquals;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
-import be.lode.jukebox.business.enums.Role;
+import be.lode.jukebox.business.model.enums.Role;
+import be.lode.setup.ClearThenSetupDBData;
 
 public class JukeboxTest {
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+		ClearThenSetupDBData.run();
+	}
+
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+		ClearThenSetupDBData.run();
+	}
 
 	@Test
 	public void testAddAccountRole() {

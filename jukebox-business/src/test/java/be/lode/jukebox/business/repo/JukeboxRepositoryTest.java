@@ -11,17 +11,30 @@ import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import be.lode.general.repository.Repository;
-import be.lode.jukebox.business.Account;
-import be.lode.jukebox.business.Jukebox;
+import be.lode.jukebox.business.model.Account;
+import be.lode.jukebox.business.model.Jukebox;
+import be.lode.setup.ClearThenSetupDBData;
 
 public class JukeboxRepositoryTest {
 
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+		ClearThenSetupDBData.run();
+	}
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+		ClearThenSetupDBData.run();
+	}
 	private Account acc;
+
 	private EntityManagerFactory emf;
+
 	Repository<Account> aRepo;
 
 	@Before

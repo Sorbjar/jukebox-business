@@ -1,13 +1,19 @@
 package be.lode.setup;
+
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import be.lode.jukebox.business.Account;
-import be.lode.jukebox.business.Jukebox;
-import be.lode.jukebox.business.OAuthApiInfo;
+import be.lode.general.repository.Repository;
+import be.lode.jukebox.business.model.Account;
+import be.lode.jukebox.business.model.Jukebox;
+import be.lode.jukebox.business.model.OAuthApiInfo;
+import be.lode.jukebox.business.model.Playlist;
+import be.lode.jukebox.business.model.Song;
 import be.lode.jukebox.business.repo.AccountRepository;
 import be.lode.jukebox.business.repo.JukeboxRepository;
 import be.lode.jukebox.business.repo.OAuthApiInfoRepository;
+import be.lode.jukebox.business.repo.PlaylistRepository;
+import be.lode.jukebox.business.repo.SongRepository;
 
 public class SetupDBData {
 
@@ -38,5 +44,15 @@ public class SetupDBData {
 
 		Jukebox ljb = new Jukebox("lodBox", lod);
 		ljb = jRepo.save(ljb);
+
+		Song song = new Song("artist", "title", "path");
+		Repository<Song> sRepo = new SongRepository(emf);
+		song = sRepo.save(song);
+
+		Playlist pl = new Playlist("playlist");
+		pl.addSong(song);
+		Repository<Playlist> plRepo = new PlaylistRepository(emf);
+		plRepo.save(pl);
+
 	}
 }

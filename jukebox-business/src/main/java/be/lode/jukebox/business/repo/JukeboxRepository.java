@@ -7,7 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
 import be.lode.general.repository.Repository;
-import be.lode.jukebox.business.Jukebox;
+import be.lode.jukebox.business.model.Jukebox;
 
 public class JukeboxRepository extends Repository<Jukebox> {
 

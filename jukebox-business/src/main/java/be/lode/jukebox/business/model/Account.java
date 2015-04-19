@@ -1,5 +1,6 @@
-package be.lode.jukebox.business;
+package be.lode.jukebox.business.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,6 +13,7 @@ public class Account {
 	private String firstName;
 	@Id
 	@GeneratedValue
+	@Column(name="AccountID")
 	private long id;
 	private String lastName;
 	private String serviceId;

@@ -1,12 +1,25 @@
-package be.lode.jukebox.business;
+package be.lode.jukebox.business.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import be.lode.setup.ClearThenSetupDBData;
+
 public class OAuthApiInfoTest {
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+		ClearThenSetupDBData.run();
+	}
+
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+		ClearThenSetupDBData.run();
+	}
 
 	@Test
 	public void testEquals() {

@@ -7,7 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
 import be.lode.general.repository.Repository;
-import be.lode.jukebox.business.OAuthApiInfo;
+import be.lode.jukebox.business.model.OAuthApiInfo;
 
 public class OAuthApiInfoRepository extends Repository<OAuthApiInfo> {
 
