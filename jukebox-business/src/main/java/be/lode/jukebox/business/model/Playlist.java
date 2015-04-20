@@ -6,12 +6,13 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
@@ -23,8 +24,8 @@ public class Playlist implements Comparable<Playlist> {
 	@Column(name = "PlaylistID")
 	private long id;
 	private String name;
-	@ElementCollection(fetch = FetchType.EAGER)
-	@JoinTable(name = "Playlist_Song")
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "Playlist_Song", joinColumns = { @JoinColumn(name = "PlaylistID", referencedColumnName = "PlaylistID") }, inverseJoinColumns = { @JoinColumn(name = "SongID", referencedColumnName = "SongID") })
 	@OrderBy("SongID")
 	private SortedMap<Integer, Song> songs;
 

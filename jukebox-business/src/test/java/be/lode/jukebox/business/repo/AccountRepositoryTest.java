@@ -18,18 +18,18 @@ import org.junit.Test;
 
 import be.lode.general.repository.Repository;
 import be.lode.jukebox.business.model.Account;
-import be.lode.setup.ClearThenSetupDBData;
+import be.lode.setup.ClearThenSetupTestDBData;
 
 public class AccountRepositoryTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		ClearThenSetupDBData.run();
+		ClearThenSetupTestDBData.run();
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		ClearThenSetupDBData.run();
+		ClearThenSetupTestDBData.run();
 	}
 
 	private EntityManagerFactory emf;
