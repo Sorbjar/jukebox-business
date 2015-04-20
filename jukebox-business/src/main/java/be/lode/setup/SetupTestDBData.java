@@ -58,6 +58,10 @@ public class SetupTestDBData {
 		song = sRepo.find(song);
 		Playlist pl2 = new Playlist("aplaylist");
 		pl2.addSong(song);
+		
+		Song song2 = new Song("artist2", "title2", "path2");
+		song2 = sRepo.save(song2);
+		pl2.addSong(song2);
 		pl2 = plRepo.save(pl2);
 
 
