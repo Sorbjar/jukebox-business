@@ -1,11 +1,11 @@
 package be.lode.setup;
-public class ClearThenSetupTestDBData {
+public class ResetDBSetupTestData {
 	public static void main(String[] args) {
 		run();
 	}
 
 	public static void run() {
-		ClearDBData.run();
-		SetupTestDBData.run();
+		ResetDB.run();
+		SetupData.run();
 	}
 }

@@ -13,8 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.SortComparator;
+
+import be.lode.jukebox.business.model.comparators.IntegerComparator;
 
 @Entity
 @Table(name = "Playlist")
@@ -26,7 +29,8 @@ public class Playlist implements Comparable<Playlist> {
 	private String name;
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "Playlist_Song", joinColumns = { @JoinColumn(name = "PlaylistID", referencedColumnName = "PlaylistID") }, inverseJoinColumns = { @JoinColumn(name = "SongID", referencedColumnName = "SongID") })
-	@OrderBy("SongID")
+	//@OrderBy("SongID")
+	@SortComparator(IntegerComparator.class)
 	private SortedMap<Integer, Song> songs;
 
 	public Playlist() {

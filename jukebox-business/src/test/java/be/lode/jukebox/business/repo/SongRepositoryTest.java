@@ -19,25 +19,25 @@ import org.junit.Test;
 
 import be.lode.general.repository.Repository;
 import be.lode.jukebox.business.model.Song;
-import be.lode.setup.ClearThenSetupTestDBData;
+import be.lode.setup.ResetDBSetupTestData;
 
 public class SongRepositoryTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		ClearThenSetupTestDBData.run();
+		ResetDBSetupTestData.run();
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		ClearThenSetupTestDBData.run();
+		ResetDBSetupTestData.run();
 	}
 
 	private EntityManagerFactory emf;
 
 	@Before
 	public void setUp() throws Exception {
-		ClearThenSetupTestDBData.run();
+		ResetDBSetupTestData.run();
 		emf = Persistence.createEntityManagerFactory("jukebox-business");
 	}
 

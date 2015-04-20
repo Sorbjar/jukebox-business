@@ -15,7 +15,7 @@ import be.lode.jukebox.business.repo.OAuthApiInfoRepository;
 import be.lode.jukebox.business.repo.PlaylistRepository;
 import be.lode.jukebox.business.repo.SongRepository;
 
-public class SetupTestDBData {
+public class SetupData {
 
 	public static void main(String[] args) {
 		run();
@@ -69,5 +69,6 @@ public class SetupTestDBData {
 		ljb.getSavedPlaylists().add(pl2);
 		
 		ljb = jRepo.save(ljb);
+		emf.close();
 	}
 }

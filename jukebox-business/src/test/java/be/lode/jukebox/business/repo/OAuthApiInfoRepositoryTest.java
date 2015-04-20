@@ -18,18 +18,18 @@ import org.junit.Test;
 
 import be.lode.general.repository.Repository;
 import be.lode.jukebox.business.model.OAuthApiInfo;
-import be.lode.setup.ClearThenSetupTestDBData;
+import be.lode.setup.ResetDBSetupTestData;
 
 public class OAuthApiInfoRepositoryTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		ClearThenSetupTestDBData.run();
+		ResetDBSetupTestData.run();
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		ClearThenSetupTestDBData.run();
+		ResetDBSetupTestData.run();
 	}
 
 	private EntityManagerFactory emf;

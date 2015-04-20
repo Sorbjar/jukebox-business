@@ -5,7 +5,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-public class ClearDBData {
+public class ResetDB {
 	public static void main(String[] args) {
 		run();
 	}
@@ -19,7 +19,7 @@ public class ClearDBData {
 		tx = em.getTransaction();
 		tx.begin();
 		Query query = em
-				.createNativeQuery("CALL `jukebox`.`SP_DropWholeJukebox`();");
+				.createNativeQuery("CALL `jukebox`.`SP_ResetDatabase`();");
 		query.executeUpdate();
 		tx.commit();
 		em.close();

@@ -6,17 +6,17 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import be.lode.setup.ClearThenSetupTestDBData;
+import be.lode.setup.ResetDBSetupTestData;
 
 public class AccountTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		ClearThenSetupTestDBData.run();
+		ResetDBSetupTestData.run();
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		ClearThenSetupTestDBData.run();
+		ResetDBSetupTestData.run();
 	}
 
 	@Test
