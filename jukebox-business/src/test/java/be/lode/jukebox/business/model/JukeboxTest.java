@@ -8,17 +8,17 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import be.lode.jukebox.business.model.enums.Role;
-import be.lode.setup.ClearThenSetupDBData;
+import be.lode.setup.ClearThenSetupTestDBData;
 
 public class JukeboxTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		ClearThenSetupDBData.run();
+		ClearThenSetupTestDBData.run();
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		ClearThenSetupDBData.run();
+		ClearThenSetupTestDBData.run();
 	}
 
 	@Test

@@ -19,17 +19,17 @@ import org.junit.Test;
 import be.lode.general.repository.Repository;
 import be.lode.jukebox.business.model.Account;
 import be.lode.jukebox.business.model.Jukebox;
-import be.lode.setup.ClearThenSetupDBData;
+import be.lode.setup.ClearThenSetupTestDBData;
 
 public class JukeboxRepositoryTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		ClearThenSetupDBData.run();
+		ClearThenSetupTestDBData.run();
 	}
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		ClearThenSetupDBData.run();
+		ClearThenSetupTestDBData.run();
 	}
 	private Account acc;
 
