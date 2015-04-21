@@ -15,7 +15,7 @@ import be.lode.jukebox.business.repo.OAuthApiInfoRepository;
 import be.lode.jukebox.business.repo.PlaylistRepository;
 import be.lode.jukebox.business.repo.SongRepository;
 
-public class SetupData {
+public class SetupTestData {
 
 	public static void main(String[] args) {
 		run();
