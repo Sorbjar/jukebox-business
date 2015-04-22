@@ -2,7 +2,6 @@ package be.lode.jukebox.business.model;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -36,6 +35,14 @@ public class Jukebox {
 	@JoinTable(name = "Jukebox_SavedPlaylists")
 	@OrderBy("name")
 	private SortedSet<Playlist> savedPlaylists;
+
+	public void setAccountRoles(Map<Account, Role> accountRoles) {
+		this.accountRoles = accountRoles;
+	}
+
+	public void setSavedPlaylists(SortedSet<Playlist> savedPlaylists) {
+		this.savedPlaylists = savedPlaylists;
+	}
 
 	public Jukebox() {
 		super();
@@ -94,7 +101,7 @@ public class Jukebox {
 		return name;
 	}
 
-	public Set<Playlist> getSavedPlaylists() {
+	public SortedSet<Playlist> getSavedPlaylists() {
 		return savedPlaylists;
 	}
 
