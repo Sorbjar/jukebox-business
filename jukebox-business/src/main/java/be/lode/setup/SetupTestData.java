@@ -69,6 +69,9 @@ public class SetupTestData {
 		ljb.getSavedPlaylists().add(pl2);
 		
 		ljb = jRepo.save(ljb);
+		
+		Song song3 = new Song("artist2", "title3", "path3");
+		song3 = sRepo.save(song3);
 		emf.close();
 	}
 }
