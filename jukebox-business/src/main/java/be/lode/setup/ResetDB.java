@@ -24,6 +24,5 @@ public class ResetDB {
 		tx.commit();
 		em.close();
 		emf.close();
-
 	}
 }

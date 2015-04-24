@@ -42,8 +42,16 @@ DROP TABLE IF EXISTS `jukebox`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `jukebox` (
   `JukeboxID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `looped` bit(1) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`JukeboxID`)
+  `random` bit(1) NOT NULL,
+  `currentPlaylist_PlaylistID` bigint(20) DEFAULT NULL,
+  `mandatoryPlaylist_PlaylistID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`JukeboxID`),
+  KEY `FK_94u7eixvvbkc8owacv3r7ppwh` (`currentPlaylist_PlaylistID`),
+  KEY `FK_l6t34dldjwmjdq82h613fee5r` (`mandatoryPlaylist_PlaylistID`),
+  CONSTRAINT `FK_94u7eixvvbkc8owacv3r7ppwh` FOREIGN KEY (`currentPlaylist_PlaylistID`) REFERENCES `playlist` (`PlaylistID`),
+  CONSTRAINT `FK_l6t34dldjwmjdq82h613fee5r` FOREIGN KEY (`mandatoryPlaylist_PlaylistID`) REFERENCES `playlist` (`PlaylistID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
