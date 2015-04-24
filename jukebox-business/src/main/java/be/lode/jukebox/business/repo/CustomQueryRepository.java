@@ -40,7 +40,6 @@ public class CustomQueryRepository {
 		em.close();
 	}
 
-	//TODO 010 testing
 	public List<String> getAllTitles(String artist) {
 		beginTransaction();
 		Query query = em.createQuery(

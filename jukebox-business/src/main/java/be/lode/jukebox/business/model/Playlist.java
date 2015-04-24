@@ -29,7 +29,6 @@ public class Playlist implements Comparable<Playlist> {
 	private String name;
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "Playlist_Song", joinColumns = { @JoinColumn(name = "PlaylistID", referencedColumnName = "PlaylistID") }, inverseJoinColumns = { @JoinColumn(name = "SongID", referencedColumnName = "SongID") })
-	//@OrderBy("SongID")
 	@SortComparator(IntegerComparator.class)
 	private SortedMap<Integer, Song> songs;
 
