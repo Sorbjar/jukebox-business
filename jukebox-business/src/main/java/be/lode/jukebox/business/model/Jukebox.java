@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -29,23 +30,23 @@ public class Jukebox {
 	@JoinTable(name = "Jukebox_AccountRoles")
 	@Enumerated(EnumType.STRING)
 	private Map<Account, Role> accountRoles;
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Playlist currentPlaylist;
-	@OneToOne(fetch = FetchType.EAGER)
-	private Playlist mandatoryPlaylist;
 	@Id
 	@GeneratedValue
 	@Column(name = "JukeboxID")
 	private long id;
 	private boolean looped;
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Playlist mandatoryPlaylist;
 	private String name;
+	@Transient
+	private Random rand;
 	private boolean random;
 	@ElementCollection(fetch = FetchType.EAGER)
 	@JoinTable(name = "Jukebox_SavedPlaylists")
 	@OrderBy("name")
 	private SortedSet<Playlist> savedPlaylists;
-	@Transient
-	private Random rand;
 
 	public Jukebox() {
 		super();
@@ -98,11 +99,14 @@ public class Jukebox {
 		return id;
 	}
 
+	public Playlist getMandatoryPlaylist() {
+		return mandatoryPlaylist;
+	}
+
 	public String getName() {
 		return name;
 	}
 
-	//TODO 010 testing
 	public Song getNextSong(int currentSongInt) {
 		if(mandatoryPlaylist != null && mandatoryPlaylist.getSongs().size() > 0)
 		{
@@ -175,6 +179,10 @@ public class Jukebox {
 		this.looped = looped;
 	}
 
+	public void setMandatoryPlaylist(Playlist mandatoryPlaylist) {
+		this.mandatoryPlaylist = mandatoryPlaylist;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -196,5 +204,41 @@ public class Jukebox {
 		this.rand = new Random();
 		this.mandatoryPlaylist = new Playlist("mandatory");
 		this.currentPlaylist = new Playlist("Unsaved playlist");
+	}
+
+	public Song getPreviousSong(int currentSongInt) {
+		if(mandatoryPlaylist != null && mandatoryPlaylist.getSongs().size() > 0)
+		{
+			return mandatoryPlaylist.getSongs().get(0);
+		}
+		else if(random)
+		{
+			//TODO 800 templist => random looped
+			int size = currentPlaylist.getSongs().size() - 1;
+
+		    int randomNum = rand.nextInt((size - 0) + 1) + 0;
+
+		    return currentPlaylist.getSongs().get(randomNum);
+		}
+		else
+		{
+			//currentSongInt
+			int size = currentPlaylist.getSongs().size() - 1;
+			if(0 == currentSongInt)
+			{
+				if(looped)
+				{
+					return currentPlaylist.getSongs().get(size);
+				}
+				else
+				{
+					return null;
+				}
+			}
+			else
+			{
+				return currentPlaylist.getSongs().get(currentSongInt - 1);
+			}
+		}
 	}
 }

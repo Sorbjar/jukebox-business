@@ -22,6 +22,93 @@ public class JukeboxTest {
 	}
 
 	@Test
+	public void testGetNextSong() {
+		Account acc = new Account("testGetNextSonga", "testGetNextSongb",
+				"testGetNextSongc", "testGetNextSongd", "testGetNextSonge");
+		Jukebox o = new Jukebox("testGetNextSong", acc);
+
+		String artist = "s1" + "artist";
+		String title = "s1" + "title";
+		String path = "s1" + "path";
+
+		Song s1 = new Song(artist, title, path);
+
+		artist = "s2" + "artist";
+		title = "s2" + "title";
+		path = "s2" + "path";
+
+		Song s2 = new Song(artist, title, path);
+
+		artist = "s3" + "artist";
+		title = "s3" + "title";
+		path = "s3" + "path";
+
+		Song s3 = new Song(artist, title, path);
+
+		o.getCurrentPlaylist().addSong(s1);
+		o.getCurrentPlaylist().addSong(s2);
+		o.getCurrentPlaylist().addSong(s3);
+
+		assertEquals(s2, o.getNextSong(0));
+
+		artist = "s4" + "artist";
+		title = "s4" + "title";
+		path = "s4" + "path";
+
+		Song s4 = new Song(artist, title, path);
+
+		o.getMandatoryPlaylist().addSong(s4);
+
+		assertEquals(s4, o.getNextSong(0));
+		assertEquals(s4, o.getNextSong(1));
+		assertEquals(s4, o.getNextSong(2));
+	}
+	
+	
+	@Test
+	public void testGetPreviousSong() {
+		Account acc = new Account("testGetPreviousSonga", "testGetPreviousSongb",
+				"testGetPreviousSongc", "testGetPreviousSongd", "testGetPreviousSonge");
+		Jukebox o = new Jukebox("testGetPreviousSong", acc);
+
+		String artist = "s1" + "artist";
+		String title = "s1" + "title";
+		String path = "s1" + "path";
+
+		Song s1 = new Song(artist, title, path);
+
+		artist = "s2" + "artist";
+		title = "s2" + "title";
+		path = "s2" + "path";
+
+		Song s2 = new Song(artist, title, path);
+
+		artist = "s3" + "artist";
+		title = "s3" + "title";
+		path = "s3" + "path";
+
+		Song s3 = new Song(artist, title, path);
+
+		o.getCurrentPlaylist().addSong(s1);
+		o.getCurrentPlaylist().addSong(s2);
+		o.getCurrentPlaylist().addSong(s3);
+
+		assertEquals(s1, o.getPreviousSong(1));
+
+		artist = "s4" + "artist";
+		title = "s4" + "title";
+		path = "s4" + "path";
+
+		Song s4 = new Song(artist, title, path);
+
+		o.getMandatoryPlaylist().addSong(s4);
+
+		assertEquals(s4, o.getPreviousSong(0));
+		assertEquals(s4, o.getPreviousSong(1));
+		assertEquals(s4, o.getPreviousSong(2));
+	}
+
+	@Test
 	public void testAddAccountRole() {
 
 		Account acc = new Account("a", "b", "c", "d", "e");
