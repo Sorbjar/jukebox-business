@@ -16,6 +16,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
@@ -43,7 +44,7 @@ public class Jukebox {
 	@Transient
 	private Random rand;
 	private boolean random;
-	@ElementCollection(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "Jukebox_SavedPlaylists")
 	@OrderBy("name")
 	private SortedSet<Playlist> savedPlaylists;
@@ -107,38 +108,114 @@ public class Jukebox {
 		return name;
 	}
 
-	public Song getNextSong(int currentSongInt) {
-		if(mandatoryPlaylist != null && mandatoryPlaylist.getSongs().size() > 0)
-		{
-			return mandatoryPlaylist.getSongs().get(0);
-		}
-		else if(random)
-		{
-			//TODO 800 templist => random looped
+	public int getNextInt(int currentSongInt) {
+		if (mandatoryPlaylist != null
+				&& mandatoryPlaylist.getSongs().size() > 0) {
+			return currentSongInt;
+		} else if (random) {
+			// TODO 700 random not current
+			// TODO 800 templist => random looped
 			int size = currentPlaylist.getSongs().size() - 1;
 
-		    int randomNum = rand.nextInt((size - 0) + 1) + 0;
+			int randomNum = rand.nextInt((size - 0) + 1) + 0;
 
-		    return currentPlaylist.getSongs().get(randomNum);
-		}
-		else
-		{
-			//currentSongInt
+			return randomNum;
+		} else {
+			// currentSongInt
 			int size = currentPlaylist.getSongs().size() - 1;
-			if(size == currentSongInt)
-			{
-				if(looped)
-				{
-					return currentPlaylist.getSongs().get(0);
+			if (size == currentSongInt) {
+				if (looped) {
+					return 0;
+				} else {
+					return -1;
 				}
-				else
-				{
+			} else {
+
+				return currentSongInt + 1;
+			}
+		}
+	}
+
+	public Song getNextSong(int currentSongInt) {
+		if (mandatoryPlaylist != null
+				&& mandatoryPlaylist.getSongs().size() > 0) {
+			return mandatoryPlaylist.getSongs().get(0);
+		} else if (random) {
+			// TODO 700 random not current
+			// TODO 800 templist => random looped
+			int size = currentPlaylist.getSongs().size() - 1;
+
+			int randomNum = rand.nextInt((size - 0) + 1) + 0;
+
+			return currentPlaylist.getSongs().get(randomNum);
+		} else {
+			// currentSongInt
+			int size = currentPlaylist.getSongs().size() - 1;
+			if (size == currentSongInt) {
+				if (looped) {
+
+					return currentPlaylist.getSongs().get(0);
+				} else {
 					return null;
 				}
-			}
-			else
-			{
+			} else {
+
 				return currentPlaylist.getSongs().get(currentSongInt + 1);
+			}
+		}
+	}
+
+	public int getPreviousInt(int currentSongInt) {
+		if (mandatoryPlaylist != null
+				&& mandatoryPlaylist.getSongs().size() > 0) {
+			return currentSongInt;
+		} else if (random) {
+			// TODO 700 random not current
+			// TODO 800 templist => random looped
+			int size = currentPlaylist.getSongs().size() - 1;
+
+			int randomNum = rand.nextInt((size - 0) + 1) + 0;
+
+			return randomNum;
+		} else {
+			// currentSongInt
+			int size = currentPlaylist.getSongs().size() - 1;
+			if (0 == currentSongInt) {
+				if (looped) {
+					return size;
+				} else {
+					return -1;
+				}
+			} else {
+				return currentSongInt - 1;
+			}
+		}
+	}
+
+	public Song getPreviousSong(int currentSongInt) {
+
+		if (mandatoryPlaylist != null
+				&& mandatoryPlaylist.getSongs().size() > 0) {
+			return mandatoryPlaylist.getSongs().get(0);
+		} else if (random) {
+			// TODO 700 random not current
+			// TODO 800 templist => random looped
+			int size = currentPlaylist.getSongs().size() - 1;
+
+			int randomNum = rand.nextInt((size - 0) + 1) + 0;
+
+			return currentPlaylist.getSongs().get(randomNum);
+		} else {
+			// currentSongInt
+			int size = currentPlaylist.getSongs().size() - 1;
+			if (0 == currentSongInt) {
+				if (looped) {
+					return currentPlaylist.getSongs().get(size);
+				} else {
+					return null;
+				}
+			} else {
+				return currentPlaylist.getSongs().get(currentSongInt - 1);
 			}
 		}
 	}
@@ -161,6 +238,18 @@ public class Jukebox {
 
 	public boolean isRandom() {
 		return random;
+	}
+
+	public void removePlaylist(Playlist pl) {
+		Playlist removePlaylist = null;
+		for (Playlist playlist : savedPlaylists) {
+			if (playlist.getName().equals(pl.getName()))
+				removePlaylist = playlist;
+		}
+		if (removePlaylist != null) {
+			savedPlaylists.remove(removePlaylist);
+		}
+
 	}
 
 	public void setAccountRoles(Map<Account, Role> accountRoles) {
@@ -204,41 +293,5 @@ public class Jukebox {
 		this.rand = new Random();
 		this.mandatoryPlaylist = new Playlist("mandatory");
 		this.currentPlaylist = new Playlist("Unsaved playlist");
-	}
-
-	public Song getPreviousSong(int currentSongInt) {
-		if(mandatoryPlaylist != null && mandatoryPlaylist.getSongs().size() > 0)
-		{
-			return mandatoryPlaylist.getSongs().get(0);
-		}
-		else if(random)
-		{
-			//TODO 800 templist => random looped
-			int size = currentPlaylist.getSongs().size() - 1;
-
-		    int randomNum = rand.nextInt((size - 0) + 1) + 0;
-
-		    return currentPlaylist.getSongs().get(randomNum);
-		}
-		else
-		{
-			//currentSongInt
-			int size = currentPlaylist.getSongs().size() - 1;
-			if(0 == currentSongInt)
-			{
-				if(looped)
-				{
-					return currentPlaylist.getSongs().get(size);
-				}
-				else
-				{
-					return null;
-				}
-			}
-			else
-			{
-				return currentPlaylist.getSongs().get(currentSongInt - 1);
-			}
-		}
 	}
 }

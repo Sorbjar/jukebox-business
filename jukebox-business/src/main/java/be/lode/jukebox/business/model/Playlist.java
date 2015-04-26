@@ -141,6 +141,10 @@ public class Playlist implements Comparable<Playlist> {
 		this.name = name;
 	}
 
+	public void setSongs(SortedMap<Integer, Song> songs) {
+		this.songs = songs;
+	}
+
 	@Override
 	public String toString() {
 		return name;

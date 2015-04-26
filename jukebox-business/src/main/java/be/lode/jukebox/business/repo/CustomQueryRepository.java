@@ -42,12 +42,25 @@ public class CustomQueryRepository {
 
 	public List<String> getAllTitles(String artist) {
 		beginTransaction();
-		Query query = em.createQuery(
-				"select distinct(sng.title) from Song sng where sng.artist = :artist", String.class);
+		Query query = em
+				.createQuery(
+						"select distinct(sng.title) from Song sng where sng.artist = :artist",
+						String.class);
 		query.setParameter("artist", artist);
 		@SuppressWarnings("unchecked")
-		List<String> titleList = Collections.checkedList(
-				query.getResultList(), String.class);
+		List<String> titleList = Collections.checkedList(query.getResultList(),
+				String.class);
+		commitTransaction();
+		return titleList;
+	}
+
+	public List<String> getAllTitles() {
+		beginTransaction();
+		Query query = em.createQuery(
+				"select distinct(sng.title) from Song sng", String.class);
+		@SuppressWarnings("unchecked")
+		List<String> titleList = Collections.checkedList(query.getResultList(),
+				String.class);
 		commitTransaction();
 		return titleList;
 	}

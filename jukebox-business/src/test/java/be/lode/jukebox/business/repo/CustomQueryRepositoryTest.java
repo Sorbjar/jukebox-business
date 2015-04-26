@@ -8,24 +8,10 @@ import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import be.lode.setup.ResetDBSetupTestData;
-
 public class CustomQueryRepositoryTest {
-
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		ResetDBSetupTestData.run();
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-		ResetDBSetupTestData.run();
-	}
 
 	private EntityManagerFactory emf;
 
@@ -46,7 +32,7 @@ public class CustomQueryRepositoryTest {
 	}
 
 	@Test
-	public void testGetAllTitles() {
+	public void testGetAllTitlesArtist() {
 		CustomQueryRepository repo = new CustomQueryRepository(emf);
 		List<String> alist = repo.getAllArtists();
 		assertNotNull(alist);
@@ -59,6 +45,19 @@ public class CustomQueryRepositoryTest {
 				assertNotNull(title);
 			}
 		}
+	}
+
+	@Test
+	public void testGetAllTitles() {
+		CustomQueryRepository repo = new CustomQueryRepository(emf);
+
+		List<String> tlist = repo.getAllTitles();
+		assertNotNull(tlist);
+		assertTrue(tlist.size() > 0);
+		for (String title : tlist) {
+			assertNotNull(title);
+		}
+
 	}
 
 }
