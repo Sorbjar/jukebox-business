@@ -1,6 +1,8 @@
 package be.lode.jukebox.business.model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 import org.junit.AfterClass;
@@ -49,7 +51,9 @@ public class JukeboxTest {
 		o.getCurrentPlaylist().addSong(s2);
 		o.getCurrentPlaylist().addSong(s3);
 
-		assertEquals(s2, o.getNextSong(0));
+		assertEquals(s2, o.getNextSong(0).getSong());
+		assertEquals(1, o.getNextSong(0).getPlaylistOrder());
+		assertFalse(o.getNextSong(0).getMandatory());
 
 		artist = "s4" + "artist";
 		title = "s4" + "title";
@@ -59,16 +63,19 @@ public class JukeboxTest {
 
 		o.getMandatoryPlaylist().addSong(s4);
 
-		assertEquals(s4, o.getNextSong(0));
-		assertEquals(s4, o.getNextSong(1));
-		assertEquals(s4, o.getNextSong(2));
+		assertEquals(s4, o.getNextSong(0).getSong());
+
+		assertEquals(0, o.getNextSong(0).getPlaylistOrder());
+		assertTrue(o.getNextSong(0).getMandatory());
+		assertEquals(s4, o.getNextSong(1).getSong());
+		assertEquals(s4, o.getNextSong(2).getSong());
 	}
-	
-	
+
 	@Test
 	public void testGetPreviousSong() {
-		Account acc = new Account("testGetPreviousSonga", "testGetPreviousSongb",
-				"testGetPreviousSongc", "testGetPreviousSongd", "testGetPreviousSonge");
+		Account acc = new Account("testGetPreviousSonga",
+				"testGetPreviousSongb", "testGetPreviousSongc",
+				"testGetPreviousSongd", "testGetPreviousSonge");
 		Jukebox o = new Jukebox("testGetPreviousSong", acc);
 
 		String artist = "s1" + "artist";
@@ -93,7 +100,9 @@ public class JukeboxTest {
 		o.getCurrentPlaylist().addSong(s2);
 		o.getCurrentPlaylist().addSong(s3);
 
-		assertEquals(s1, o.getPreviousSong(1));
+		assertEquals(s1, o.getPreviousSong(1).getSong());
+		assertEquals(0, o.getPreviousSong(1).getPlaylistOrder());
+		assertFalse(o.getPreviousSong(1).getMandatory());
 
 		artist = "s4" + "artist";
 		title = "s4" + "title";
@@ -103,9 +112,13 @@ public class JukeboxTest {
 
 		o.getMandatoryPlaylist().addSong(s4);
 
-		assertEquals(s4, o.getPreviousSong(0));
-		assertEquals(s4, o.getPreviousSong(1));
-		assertEquals(s4, o.getPreviousSong(2));
+		
+		assertEquals(s4, o.getPreviousSong(0).getSong());
+
+		assertEquals(0, o.getPreviousSong(0).getPlaylistOrder());
+		assertTrue(o.getPreviousSong(0).getMandatory());
+		assertEquals(s4, o.getPreviousSong(1).getSong());
+		assertEquals(s4, o.getPreviousSong(2).getSong());
 	}
 
 	@Test

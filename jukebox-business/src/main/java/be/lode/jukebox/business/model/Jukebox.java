@@ -108,10 +108,12 @@ public class Jukebox {
 		return name;
 	}
 
-	public int getNextInt(int currentSongInt) {
+	public SongContainer getNextSong(int currentSongInt) {
 		if (mandatoryPlaylist != null
 				&& mandatoryPlaylist.getSongs().size() > 0) {
-			return currentSongInt;
+			SongContainer sc = new SongContainer(mandatoryPlaylist.getSongs()
+					.get(0), 0, true);
+			return sc;
 		} else if (random) {
 			// TODO 700 random not current
 			// TODO 800 templist => random looped
@@ -119,56 +121,38 @@ public class Jukebox {
 
 			int randomNum = rand.nextInt((size - 0) + 1) + 0;
 
-			return randomNum;
-		} else {
-			// currentSongInt
-			int size = currentPlaylist.getSongs().size() - 1;
-			if (size == currentSongInt) {
-				if (looped) {
-					return 0;
-				} else {
-					return -1;
-				}
-			} else {
-
-				return currentSongInt + 1;
-			}
-		}
-	}
-
-	public Song getNextSong(int currentSongInt) {
-		if (mandatoryPlaylist != null
-				&& mandatoryPlaylist.getSongs().size() > 0) {
-			return mandatoryPlaylist.getSongs().get(0);
-		} else if (random) {
-			// TODO 700 random not current
-			// TODO 800 templist => random looped
-			int size = currentPlaylist.getSongs().size() - 1;
-
-			int randomNum = rand.nextInt((size - 0) + 1) + 0;
-
-			return currentPlaylist.getSongs().get(randomNum);
+			SongContainer sc = new SongContainer(currentPlaylist.getSongs()
+					.get(randomNum), randomNum, false);
+			return sc;
 		} else {
 			// currentSongInt
 			int size = currentPlaylist.getSongs().size() - 1;
 			if (size == currentSongInt) {
 				if (looped) {
 
-					return currentPlaylist.getSongs().get(0);
+					SongContainer sc = new SongContainer(currentPlaylist
+							.getSongs().get(0), 0, false);
+					return sc;
 				} else {
 					return null;
 				}
 			} else {
 
-				return currentPlaylist.getSongs().get(currentSongInt + 1);
+				int i = currentSongInt + 1;
+				SongContainer sc = new SongContainer(currentPlaylist.getSongs()
+						.get(i), i, false);
+				return sc;
 			}
 		}
 	}
 
-	public int getPreviousInt(int currentSongInt) {
+	public SongContainer getPreviousSong(int currentSongInt) {
+
 		if (mandatoryPlaylist != null
 				&& mandatoryPlaylist.getSongs().size() > 0) {
-			return currentSongInt;
+			SongContainer sc = new SongContainer(mandatoryPlaylist.getSongs()
+					.get(0), 0, true);
+			return sc;
 		} else if (random) {
 			// TODO 700 random not current
 			// TODO 800 templist => random looped
@@ -176,46 +160,25 @@ public class Jukebox {
 
 			int randomNum = rand.nextInt((size - 0) + 1) + 0;
 
-			return randomNum;
+			SongContainer sc = new SongContainer(currentPlaylist.getSongs()
+					.get(randomNum), randomNum, false);
+			return sc;
 		} else {
 			// currentSongInt
 			int size = currentPlaylist.getSongs().size() - 1;
 			if (0 == currentSongInt) {
 				if (looped) {
-					return size;
-				} else {
-					return -1;
-				}
-			} else {
-				return currentSongInt - 1;
-			}
-		}
-	}
-
-	public Song getPreviousSong(int currentSongInt) {
-
-		if (mandatoryPlaylist != null
-				&& mandatoryPlaylist.getSongs().size() > 0) {
-			return mandatoryPlaylist.getSongs().get(0);
-		} else if (random) {
-			// TODO 700 random not current
-			// TODO 800 templist => random looped
-			int size = currentPlaylist.getSongs().size() - 1;
-
-			int randomNum = rand.nextInt((size - 0) + 1) + 0;
-
-			return currentPlaylist.getSongs().get(randomNum);
-		} else {
-			// currentSongInt
-			int size = currentPlaylist.getSongs().size() - 1;
-			if (0 == currentSongInt) {
-				if (looped) {
-					return currentPlaylist.getSongs().get(size);
+					SongContainer sc = new SongContainer(currentPlaylist
+							.getSongs().get(size), size, false);
+					return sc;
 				} else {
 					return null;
 				}
 			} else {
-				return currentPlaylist.getSongs().get(currentSongInt - 1);
+				int i = currentSongInt - 1;
+				SongContainer sc = new SongContainer(currentPlaylist.getSongs()
+						.get(i), i, false);
+				return sc;
 			}
 		}
 	}
@@ -293,5 +256,15 @@ public class Jukebox {
 		this.rand = new Random();
 		this.mandatoryPlaylist = new Playlist("mandatory");
 		this.currentPlaylist = new Playlist("Unsaved playlist");
+	}
+
+	public void removeMandatorySong(Song song, int order) {
+		if (mandatoryPlaylist != null
+				&& mandatoryPlaylist.getSongs().size() > 0) {
+			if(mandatoryPlaylist.getSongs().get(order).equals(song))
+			{
+				mandatoryPlaylist.removeSong(order);
+			}
+		}
 	}
 }
