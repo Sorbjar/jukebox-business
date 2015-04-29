@@ -21,7 +21,7 @@ public class CustomQueryRepository {
 	public List<String> getAllArtists() {
 		beginTransaction();
 		Query query = em.createQuery(
-				"select distinct(sng.artist) from Song sng", String.class);
+				"select distinct(sng.artist) from Song sng order by artist", String.class);
 		@SuppressWarnings("unchecked")
 		List<String> artistList = Collections.checkedList(
 				query.getResultList(), String.class);
@@ -44,7 +44,7 @@ public class CustomQueryRepository {
 		beginTransaction();
 		Query query = em
 				.createQuery(
-						"select distinct(sng.title) from Song sng where sng.artist = :artist",
+						"select distinct(sng.title) from Song sng where sng.artist = :artist order by artist",
 						String.class);
 		query.setParameter("artist", artist);
 		@SuppressWarnings("unchecked")
@@ -57,7 +57,7 @@ public class CustomQueryRepository {
 	public List<String> getAllTitles() {
 		beginTransaction();
 		Query query = em.createQuery(
-				"select distinct(sng.title) from Song sng", String.class);
+				"select distinct(sng.title) from Song sng order by title", String.class);
 		@SuppressWarnings("unchecked")
 		List<String> titleList = Collections.checkedList(query.getResultList(),
 				String.class);
