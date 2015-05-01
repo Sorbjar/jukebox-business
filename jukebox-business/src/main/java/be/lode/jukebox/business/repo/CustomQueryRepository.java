@@ -21,7 +21,8 @@ public class CustomQueryRepository {
 	public List<String> getAllArtists() {
 		beginTransaction();
 		Query query = em.createQuery(
-				"select distinct(sng.artist) from Song sng order by artist", String.class);
+				"select distinct(sng.artist) from Song sng order by artist",
+				String.class);
 		@SuppressWarnings("unchecked")
 		List<String> artistList = Collections.checkedList(
 				query.getResultList(), String.class);
@@ -57,11 +58,25 @@ public class CustomQueryRepository {
 	public List<String> getAllTitles() {
 		beginTransaction();
 		Query query = em.createQuery(
-				"select distinct(sng.title) from Song sng order by title", String.class);
+				"select distinct(sng.title) from Song sng order by title",
+				String.class);
 		@SuppressWarnings("unchecked")
 		List<String> titleList = Collections.checkedList(query.getResultList(),
 				String.class);
 		commitTransaction();
 		return titleList;
+	}
+
+	// TODO 010 testing
+	public List<String> getAllJukeboxes() {
+		beginTransaction();
+		Query query = em.createQuery(
+				"select distinct(jb.name) from Jukebox jb order by jb.name",
+				String.class);
+		@SuppressWarnings("unchecked")
+		List<String> jukeboxList = Collections.checkedList(
+				query.getResultList(), String.class);
+		commitTransaction();
+		return jukeboxList;
 	}
 }
