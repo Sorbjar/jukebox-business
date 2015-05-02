@@ -45,13 +45,14 @@ public class CustomQueryRepository {
 		beginTransaction();
 		Query query = em
 				.createQuery(
-						"select distinct(sng.title) from Song sng where sng.artist = :artist order by artist",
+						"select distinct(sng.title) from Song sng where sng.artist = :artist order by title",
 						String.class);
 		query.setParameter("artist", artist);
 		@SuppressWarnings("unchecked")
 		List<String> titleList = Collections.checkedList(query.getResultList(),
 				String.class);
 		commitTransaction();
+
 		return titleList;
 	}
 
@@ -65,18 +66,5 @@ public class CustomQueryRepository {
 				String.class);
 		commitTransaction();
 		return titleList;
-	}
-
-	// TODO 010 testing
-	public List<String> getAllJukeboxes() {
-		beginTransaction();
-		Query query = em.createQuery(
-				"select distinct(jb.name) from Jukebox jb order by jb.name",
-				String.class);
-		@SuppressWarnings("unchecked")
-		List<String> jukeboxList = Collections.checkedList(
-				query.getResultList(), String.class);
-		commitTransaction();
-		return jukeboxList;
 	}
 }
