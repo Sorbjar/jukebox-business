@@ -45,7 +45,7 @@ public class CustomQueryRepository {
 		beginTransaction();
 		Query query = em
 				.createQuery(
-						"select distinct(sng.title) from Song sng where sng.artist = :artist order by title",
+						"select distinct(sng.title) from Song sng where sng.artist = :artist order by sng.title",
 						String.class);
 		query.setParameter("artist", artist);
 		@SuppressWarnings("unchecked")
@@ -59,7 +59,7 @@ public class CustomQueryRepository {
 	public List<String> getAllTitles() {
 		beginTransaction();
 		Query query = em.createQuery(
-				"select distinct(sng.title) from Song sng order by title",
+				"select distinct(sng.title) from Song sng order by sng.title",
 				String.class);
 		@SuppressWarnings("unchecked")
 		List<String> titleList = Collections.checkedList(query.getResultList(),
