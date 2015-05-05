@@ -1,4 +1,5 @@
-CREATE PROCEDURE `SP_DropWholeJukebox` ()
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_DropWholeJukebox`()
 BEGIN
 	SET FOREIGN_KEY_CHECKS = 0; 
 	SET @tables = NULL;
@@ -11,4 +12,5 @@ BEGIN
 	EXECUTE stmt;
 	DEALLOCATE PREPARE stmt;
 	SET FOREIGN_KEY_CHECKS = 1;
-END
+END$$
+DELIMITER ;
