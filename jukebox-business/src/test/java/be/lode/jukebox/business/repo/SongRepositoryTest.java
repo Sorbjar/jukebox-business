@@ -19,6 +19,7 @@ import org.junit.Test;
 
 import be.lode.general.repository.Repository;
 import be.lode.jukebox.business.model.Song;
+import be.lode.setup.ResetDBSetupLiveData;
 import be.lode.setup.ResetDBSetupTestData;
 
 public class SongRepositoryTest {
@@ -30,7 +31,7 @@ public class SongRepositoryTest {
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		ResetDBSetupTestData.run();
+		ResetDBSetupLiveData.run();
 	}
 
 	private EntityManagerFactory emf;

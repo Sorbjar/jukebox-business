@@ -3,9 +3,14 @@ package be.lode.setup;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import be.lode.general.repository.Repository;
 import be.lode.jukebox.business.model.Account;
+import be.lode.jukebox.business.model.Currency;
+import be.lode.jukebox.business.model.Jukebox;
 import be.lode.jukebox.business.model.OAuthApiInfo;
 import be.lode.jukebox.business.repo.AccountRepository;
+import be.lode.jukebox.business.repo.CurrencyRepository;
+import be.lode.jukebox.business.repo.JukeboxRepository;
 import be.lode.jukebox.business.repo.OAuthApiInfoRepository;
 
 public class SetupLiveData {
@@ -29,6 +34,20 @@ public class SetupLiveData {
 				"10153294269263586", "facebook");
 
 		lod = aRepo.save(lod);
+		
+		
+		Currency cur = new Currency("EUR", "Euro");
+		Repository<Currency> curRepo = new CurrencyRepository(emf);
+		cur = curRepo.save(cur);
+		
+
+		Currency cur2 = new Currency("USD", "U.S. Dollar");
+		cur2 = curRepo.save(cur2);
+		
+		JukeboxRepository jRepo = new JukeboxRepository(emf);
+		Jukebox jb = new Jukebox("jbName", lod);
+		jb = jRepo.save(jb);
+		
 		emf.close();
 	}
 }

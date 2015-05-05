@@ -6,6 +6,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import be.lode.setup.ResetDBSetupLiveData;
 import be.lode.setup.ResetDBSetupTestData;
 
 public class AccountTest {
@@ -16,7 +17,7 @@ public class AccountTest {
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		ResetDBSetupTestData.run();
+		ResetDBSetupLiveData.run();
 	}
 
 	@Test

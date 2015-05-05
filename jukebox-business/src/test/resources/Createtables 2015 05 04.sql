@@ -30,7 +30,21 @@ CREATE TABLE `account` (
   `serviceId` varchar(255) DEFAULT NULL,
   `serviceName` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`AccountID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `currency`
+--
+
+DROP TABLE IF EXISTS `currency`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `currency` (
+  `PAYPALCODE` varchar(255) NOT NULL,
+  `NAME` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`PAYPALCODE`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,12 +61,15 @@ CREATE TABLE `jukebox` (
   `random` bit(1) NOT NULL,
   `currentPlaylist_PlaylistID` bigint(20) DEFAULT NULL,
   `mandatoryPlaylist_PlaylistID` bigint(20) DEFAULT NULL,
+  `payPalSettings_PayPalSettingsID` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`JukeboxID`),
   KEY `FK_94u7eixvvbkc8owacv3r7ppwh` (`currentPlaylist_PlaylistID`),
   KEY `FK_l6t34dldjwmjdq82h613fee5r` (`mandatoryPlaylist_PlaylistID`),
+  KEY `FK_3nygyngudsjr5e8lqp3t1wixx` (`payPalSettings_PayPalSettingsID`),
+  CONSTRAINT `FK_3nygyngudsjr5e8lqp3t1wixx` FOREIGN KEY (`payPalSettings_PayPalSettingsID`) REFERENCES `paypalsettings` (`PayPalSettingsID`),
   CONSTRAINT `FK_94u7eixvvbkc8owacv3r7ppwh` FOREIGN KEY (`currentPlaylist_PlaylistID`) REFERENCES `playlist` (`PlaylistID`),
   CONSTRAINT `FK_l6t34dldjwmjdq82h613fee5r` FOREIGN KEY (`mandatoryPlaylist_PlaylistID`) REFERENCES `playlist` (`PlaylistID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -108,6 +125,24 @@ CREATE TABLE `oauthapiinfo` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `paypalsettings`
+--
+
+DROP TABLE IF EXISTS `paypalsettings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `paypalsettings` (
+  `PayPalSettingsID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) DEFAULT NULL,
+  `pricePerSong` double NOT NULL,
+  `currency_PAYPALCODE` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`PayPalSettingsID`),
+  KEY `FK_q4ve0mjk889ymq364s5nw1m55` (`currency_PAYPALCODE`),
+  CONSTRAINT `FK_q4ve0mjk889ymq364s5nw1m55` FOREIGN KEY (`currency_PAYPALCODE`) REFERENCES `currency` (`PAYPALCODE`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `playlist`
 --
 
@@ -118,7 +153,7 @@ CREATE TABLE `playlist` (
   `PlaylistID` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`PlaylistID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,7 +187,7 @@ CREATE TABLE `song` (
   `path` varchar(255) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`SongID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,4 +215,4 @@ CREATE TABLE `song_metadata` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-21 11:28:03
+-- Dump completed on 2015-05-04 22:04:59

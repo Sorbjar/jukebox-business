@@ -19,6 +19,7 @@ import org.junit.Test;
 import be.lode.general.repository.Repository;
 import be.lode.jukebox.business.model.Account;
 import be.lode.jukebox.business.model.Jukebox;
+import be.lode.setup.ResetDBSetupLiveData;
 import be.lode.setup.ResetDBSetupTestData;
 
 public class JukeboxRepositoryTest {
@@ -27,9 +28,10 @@ public class JukeboxRepositoryTest {
 	public static void setUpBeforeClass() throws Exception {
 		ResetDBSetupTestData.run();
 	}
+
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		ResetDBSetupTestData.run();
+		ResetDBSetupLiveData.run();
 	}
 	private Account acc;
 

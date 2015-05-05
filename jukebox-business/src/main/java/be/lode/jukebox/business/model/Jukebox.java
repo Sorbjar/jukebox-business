@@ -48,6 +48,16 @@ public class Jukebox {
 	@JoinTable(name = "Jukebox_SavedPlaylists")
 	@OrderBy("name")
 	private SortedSet<Playlist> savedPlaylists;
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private PayPalSettings payPalSettings;
+
+	public PayPalSettings getPayPalSettings() {
+		return payPalSettings;
+	}
+
+	public void setPayPalSettings(PayPalSettings payPalSettings) {
+		this.payPalSettings = payPalSettings;
+	}
 
 	public Jukebox() {
 		super();
@@ -256,6 +266,7 @@ public class Jukebox {
 		this.rand = new Random();
 		this.mandatoryPlaylist = new Playlist("mandatory");
 		this.currentPlaylist = new Playlist("Unsaved playlist");
+		this.payPalSettings = new PayPalSettings();
 	}
 
 	public void removeMandatorySong(Song song, int order) {

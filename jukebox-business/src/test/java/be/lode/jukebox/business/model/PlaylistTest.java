@@ -5,28 +5,23 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
-import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import be.lode.setup.ResetDBSetupLiveData;
+import be.lode.setup.ResetDBSetupTestData;
 
 public class PlaylistTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		ResetDBSetupTestData.run();
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-	}
-
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
+		ResetDBSetupLiveData.run();
 	}
 
 	@Test
@@ -75,13 +70,13 @@ public class PlaylistTest {
 		assertNotNull("Playlist songcollection not null", pl.getSongs());
 		assertEquals("Playlist is empty", 0, pl.getSongs().size());
 	}
-	
+
 	@Test
 	public void testToString() {
 		Playlist pl = new Playlist("tst");
-		assertEquals("Tostring","tst", pl.toString());
+		assertEquals("Tostring", "tst", pl.toString());
 		pl.setName("newTest");
-		assertEquals("Tostring","newTest", pl.toString());
+		assertEquals("Tostring", "newTest", pl.toString());
 	}
 
 	@Test

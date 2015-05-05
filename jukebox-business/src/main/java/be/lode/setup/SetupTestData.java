@@ -5,13 +5,17 @@ import javax.persistence.Persistence;
 
 import be.lode.general.repository.Repository;
 import be.lode.jukebox.business.model.Account;
+import be.lode.jukebox.business.model.Currency;
 import be.lode.jukebox.business.model.Jukebox;
 import be.lode.jukebox.business.model.OAuthApiInfo;
+import be.lode.jukebox.business.model.PayPalSettings;
 import be.lode.jukebox.business.model.Playlist;
 import be.lode.jukebox.business.model.Song;
 import be.lode.jukebox.business.repo.AccountRepository;
+import be.lode.jukebox.business.repo.CurrencyRepository;
 import be.lode.jukebox.business.repo.JukeboxRepository;
 import be.lode.jukebox.business.repo.OAuthApiInfoRepository;
+import be.lode.jukebox.business.repo.PayPalSettingsRepository;
 import be.lode.jukebox.business.repo.PlaylistRepository;
 import be.lode.jukebox.business.repo.SongRepository;
 
@@ -72,6 +76,14 @@ public class SetupTestData {
 		
 		Song song3 = new Song("artist2", "title3", "path3");
 		song3 = sRepo.save(song3);
+		
+		Currency cur = new Currency("HKD", "Hong Kong Dollar");
+		Repository<Currency> curRepo = new CurrencyRepository(emf);
+		cur = curRepo.save(cur);
+		
+		PayPalSettings pay =  new PayPalSettings();
+		Repository<PayPalSettings> payRepo = new PayPalSettingsRepository(emf);
+		pay = payRepo.save(pay);
 		emf.close();
 	}
 }

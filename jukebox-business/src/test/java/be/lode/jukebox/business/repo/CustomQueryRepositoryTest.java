@@ -8,13 +8,26 @@ import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+
+import be.lode.setup.ResetDBSetupLiveData;
+import be.lode.setup.ResetDBSetupTestData;
 
 public class CustomQueryRepositoryTest {
 
 	private EntityManagerFactory emf;
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+		ResetDBSetupTestData.run();
+	}
 
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+		ResetDBSetupLiveData.run();
+	}
 	@Before
 	public void setUp() throws Exception {
 		emf = Persistence.createEntityManagerFactory("jukebox-business");

@@ -3,9 +3,23 @@ package be.lode.jukebox.business.model.comparators;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import be.lode.setup.ResetDBSetupLiveData;
+import be.lode.setup.ResetDBSetupTestData;
+
 public class IntegerComparatorTest {
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+		ResetDBSetupTestData.run();
+	}
+
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+		ResetDBSetupLiveData.run();
+	}
 	@Test
 	public void testCompare() {
 		IntegerComparator ic = new IntegerComparator();

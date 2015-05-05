@@ -10,6 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import be.lode.jukebox.business.model.enums.Role;
+import be.lode.setup.ResetDBSetupLiveData;
 import be.lode.setup.ResetDBSetupTestData;
 
 public class JukeboxTest {
@@ -20,7 +21,7 @@ public class JukeboxTest {
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		ResetDBSetupTestData.run();
+		ResetDBSetupLiveData.run();
 	}
 
 	@Test

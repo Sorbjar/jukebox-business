@@ -9,7 +9,7 @@ import org.junit.Test;
 import be.lode.setup.ResetDBSetupLiveData;
 import be.lode.setup.ResetDBSetupTestData;
 
-public class SongTest {
+public class CurrencyTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -23,7 +23,7 @@ public class SongTest {
 
 	@Test
 	public void testEquals() {
-		EqualsVerifier.forClass(Song.class).usingGetClass().verify();
+		EqualsVerifier.forClass(Account.class).usingGetClass().verify();
 	}
 
 }
