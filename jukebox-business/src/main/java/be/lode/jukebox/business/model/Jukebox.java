@@ -272,10 +272,24 @@ public class Jukebox {
 	public void removeMandatorySong(Song song, int order) {
 		if (mandatoryPlaylist != null
 				&& mandatoryPlaylist.getSongs().size() > 0) {
-			if(mandatoryPlaylist.getSongs().get(order).equals(song))
-			{
+			if (mandatoryPlaylist.getSongs().get(order).equals(song)) {
 				mandatoryPlaylist.removeSong(order);
 			}
 		}
+	}
+
+	public SongContainer getFirstSong() {
+		if (mandatoryPlaylist != null
+				&& mandatoryPlaylist.getSongs().size() > 0) {
+			SongContainer sc = new SongContainer(mandatoryPlaylist.getSongs()
+					.get(0), 0, true);
+			return sc;
+		} else if (currentPlaylist.getSongs().size() > 0) {
+			SongContainer sc = new SongContainer(currentPlaylist.getSongs()
+					.get(0), 0, false);
+			return sc;
+		}
+		return null;
+
 	}
 }
