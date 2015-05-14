@@ -30,6 +30,7 @@ public class Song {
 		super();
 		this.artist = "";
 		this.title = "";
+		this.metadataProperties = new HashMap<String, String>();
 	}
 
 	public Song(String artist, String title, String path) {
@@ -39,7 +40,7 @@ public class Song {
 		this.path = path;
 		this.title = title;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
