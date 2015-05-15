@@ -125,11 +125,14 @@ public class Jukebox {
 					.get(0), 0, true);
 			return sc;
 		} else if (random) {
-			// TODO 700 random not current
 			// TODO 800 templist => random looped
 			int size = currentPlaylist.getSongs().size() - 1;
 
-			int randomNum = rand.nextInt((size - 0) + 1) + 0;
+			int randomNum = currentSongInt;
+			if (size > 0) {
+				while (randomNum == currentSongInt)
+					randomNum = rand.nextInt((size - 0) + 1) + 0;
+			}
 
 			SongContainer sc = new SongContainer(currentPlaylist.getSongs()
 					.get(randomNum), randomNum, false);
@@ -164,11 +167,14 @@ public class Jukebox {
 					.get(0), 0, true);
 			return sc;
 		} else if (random) {
-			// TODO 700 random not current
 			// TODO 800 templist => random looped
 			int size = currentPlaylist.getSongs().size() - 1;
 
-			int randomNum = rand.nextInt((size - 0) + 1) + 0;
+			int randomNum = currentSongInt;
+			if (size > 0) {
+				while (randomNum == currentSongInt)
+					randomNum = rand.nextInt((size - 0) + 1) + 0;
+			}
 
 			SongContainer sc = new SongContainer(currentPlaylist.getSongs()
 					.get(randomNum), randomNum, false);
