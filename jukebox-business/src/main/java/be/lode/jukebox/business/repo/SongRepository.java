@@ -9,12 +9,26 @@ import javax.persistence.Query;
 import be.lode.general.repository.Repository;
 import be.lode.jukebox.business.model.Song;
 
+/**
+ * The Class SongRepository.
+ */
 public class SongRepository extends Repository<Song> {
 
+	/**
+	 * Instantiates a new song repository.
+	 *
+	 * @param emf
+	 *            the entity manager factory
+	 */
 	public SongRepository(EntityManagerFactory emf) {
 		super(emf);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see be.lode.general.repository.IRepository#getList()
+	 */
 	@Override
 	public List<Song> getList() {
 		beginTransaction();

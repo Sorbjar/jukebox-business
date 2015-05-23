@@ -9,12 +9,26 @@ import javax.persistence.Query;
 import be.lode.general.repository.Repository;
 import be.lode.jukebox.business.model.OAuthApiInfo;
 
+/**
+ * The Class OAuthApiInfoRepository.
+ */
 public class OAuthApiInfoRepository extends Repository<OAuthApiInfo> {
 
+	/**
+	 * Instantiates a new o auth api info repository.
+	 *
+	 * @param emf
+	 *            the entity manager factory
+	 */
 	public OAuthApiInfoRepository(EntityManagerFactory emf) {
 		super(emf);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see be.lode.general.repository.IRepository#getList()
+	 */
 	@Override
 	public List<OAuthApiInfo> getList() {
 		em = emf.createEntityManager();

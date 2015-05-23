@@ -12,7 +12,7 @@ import be.lode.jukebox.business.repo.AccountRepository;
 import be.lode.jukebox.business.repo.CurrencyRepository;
 import be.lode.jukebox.business.repo.JukeboxRepository;
 import be.lode.jukebox.business.repo.OAuthApiInfoRepository;
-
+//TODO 700 extract to another project for setup
 public class SetupLiveData {
 
 	public static void main(String[] args) {
@@ -34,20 +34,21 @@ public class SetupLiveData {
 				"10153294269263586", "facebook");
 
 		lod = aRepo.save(lod);
-		
-		
+
 		Currency cur = new Currency("EUR", "Euro");
 		Repository<Currency> curRepo = new CurrencyRepository(emf);
 		cur = curRepo.save(cur);
-		
 
 		Currency cur2 = new Currency("USD", "U.S. Dollar");
 		cur2 = curRepo.save(cur2);
-		
+
+		Currency cur3 = new Currency("GBP", "Pound Sterling");
+		cur3 = curRepo.save(cur3);
+
 		JukeboxRepository jRepo = new JukeboxRepository(emf);
-		Jukebox jb = new Jukebox("jbName", lod);
+		Jukebox jb = new Jukebox("Fun jukebox", lod);
 		jb = jRepo.save(jb);
-		
+
 		emf.close();
 	}
 }

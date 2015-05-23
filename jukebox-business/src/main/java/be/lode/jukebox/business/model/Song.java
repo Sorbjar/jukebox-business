@@ -12,20 +12,36 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.Table;
 
+/**
+ * The Class Song.
+ */
 @Entity
 @Table(name = "Song")
 public class Song {
+
+	/** The artist. */
 	private final String artist;
+
+	/** The id. */
 	@Id
 	@GeneratedValue
 	@Column(name = "SongID")
 	private long id;
+
+	/** The metadata properties. */
 	@ElementCollection(fetch = FetchType.EAGER)
 	@JoinTable(name = "Song_Metadata")
 	private Map<String, String> metadataProperties;
+
+	/** The path. */
 	private String path;
+
+	/** The title. */
 	private final String title;
 
+	/**
+	 * Instantiates a new song.
+	 */
 	public Song() {
 		super();
 		this.artist = "";
@@ -33,6 +49,16 @@ public class Song {
 		this.metadataProperties = new HashMap<String, String>();
 	}
 
+	/**
+	 * Instantiates a new song.
+	 *
+	 * @param artist
+	 *            the artist
+	 * @param title
+	 *            the title
+	 * @param path
+	 *            the path
+	 */
 	public Song(String artist, String title, String path) {
 		super();
 		this.metadataProperties = new HashMap<String, String>();
@@ -40,7 +66,12 @@ public class Song {
 		this.path = path;
 		this.title = title;
 	}
-	
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -63,26 +94,56 @@ public class Song {
 		return true;
 	}
 
+	/**
+	 * Gets the artist.
+	 *
+	 * @return the artist
+	 */
 	public String getArtist() {
 		return artist;
 	}
 
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
 	public long getId() {
 		return id;
 	}
 
+	/**
+	 * Gets the metadata properties.
+	 *
+	 * @return the metadata properties
+	 */
 	public Map<String, String> getMetadataProperties() {
 		return metadataProperties;
 	}
 
+	/**
+	 * Gets the path.
+	 *
+	 * @return the path
+	 */
 	public String getPath() {
 		return path;
 	}
 
+	/**
+	 * Gets the title.
+	 *
+	 * @return the title
+	 */
 	public String getTitle() {
 		return title;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -92,10 +153,22 @@ public class Song {
 		return result;
 	}
 
+	/**
+	 * Sets the id.
+	 *
+	 * @param id
+	 *            the new id
+	 */
 	public void setId(long id) {
 		this.id = id;
 	}
 
+	/**
+	 * Sets the path.
+	 *
+	 * @param path
+	 *            the new path
+	 */
 	public void setPath(String path) {
 		this.path = path;
 	}

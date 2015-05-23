@@ -24,52 +24,84 @@ import javax.persistence.Transient;
 
 import be.lode.jukebox.business.model.enums.Role;
 
+/**
+ * The Class Jukebox.
+ */
 @Entity
 @Table(name = "Jukebox")
 public class Jukebox {
+
+	/** The account roles. */
 	@ElementCollection(fetch = FetchType.EAGER)
 	@JoinTable(name = "Jukebox_AccountRoles")
 	@Enumerated(EnumType.STRING)
 	private Map<Account, Role> accountRoles;
+
+	/** The current playlist. */
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Playlist currentPlaylist;
+
+	/** The id. */
 	@Id
 	@GeneratedValue
 	@Column(name = "JukeboxID")
 	private long id;
+
+	/** The looped. */
 	private boolean looped;
+
+	/** The mandatory playlist. */
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Playlist mandatoryPlaylist;
+
+	/** The name. */
 	private String name;
+
+	/** The pay pal settings. */
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private PayPalSettings payPalSettings;
+
+	/** The rand. */
 	@Transient
 	private Random rand;
+
+	/** The random. */
 	private boolean random;
+
+	/** The saved playlists. */
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "Jukebox_SavedPlaylists")
 	@OrderBy("name")
 	private SortedSet<Playlist> savedPlaylists;
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private PayPalSettings payPalSettings;
 
-	public PayPalSettings getPayPalSettings() {
-		return payPalSettings;
-	}
-
-	public void setPayPalSettings(PayPalSettings payPalSettings) {
-		this.payPalSettings = payPalSettings;
-	}
-
+	/**
+	 * Instantiates a new jukebox.
+	 */
 	public Jukebox() {
 		super();
 		constructor();
 	}
 
+	/**
+	 * Instantiates a new jukebox.
+	 *
+	 * @param account
+	 *            the account
+	 */
 	public Jukebox(Account account) {
 		super();
 		constructor();
 		this.addAccountRole(account, Role.Administrator);
 	}
 
+	/**
+	 * Instantiates a new jukebox.
+	 *
+	 * @param name
+	 *            the name
+	 * @param account
+	 *            the account
+	 */
 	public Jukebox(String name, Account account) {
 		super();
 		constructor();
@@ -77,6 +109,14 @@ public class Jukebox {
 		this.addAccountRole(account, Role.Administrator);
 	}
 
+	/**
+	 * Adds the account role.
+	 *
+	 * @param account
+	 *            the account
+	 * @param role
+	 *            the role
+	 */
 	public void addAccountRole(Account account, Role role) {
 		if (this.accountRoles.containsKey(account))
 			accountRoles.replace(account, role);
@@ -84,6 +124,11 @@ public class Jukebox {
 			accountRoles.put(account, role);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -98,26 +143,78 @@ public class Jukebox {
 		return true;
 	}
 
+	/**
+	 * Gets the account roles.
+	 *
+	 * @return the account roles
+	 */
 	public Map<Account, Role> getAccountRoles() {
 		return accountRoles;
 	}
 
+	/**
+	 * Gets the current playlist.
+	 *
+	 * @return the current playlist
+	 */
 	public Playlist getCurrentPlaylist() {
 		return currentPlaylist;
 	}
 
+	/**
+	 * Gets the first song.
+	 *
+	 * @return the first song
+	 */
+	public SongContainer getFirstSong() {
+		if (mandatoryPlaylist != null
+				&& mandatoryPlaylist.getSongs().size() > 0) {
+			SongContainer sc = new SongContainer(mandatoryPlaylist.getSongs()
+					.get(0), 0, true);
+			return sc;
+		} else if (currentPlaylist.getSongs().size() > 0) {
+			SongContainer sc = new SongContainer(currentPlaylist.getSongs()
+					.get(0), 0, false);
+			return sc;
+		}
+		return null;
+
+	}
+
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
 	public long getId() {
 		return id;
 	}
 
+	/**
+	 * Gets the mandatory playlist.
+	 *
+	 * @return the mandatory playlist
+	 */
 	public Playlist getMandatoryPlaylist() {
 		return mandatoryPlaylist;
 	}
 
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Gets the next song.
+	 *
+	 * @param currentSongInt
+	 *            the current song int
+	 * @return the next song
+	 */
 	public SongContainer getNextSong(int currentSongInt) {
 		if (mandatoryPlaylist != null
 				&& mandatoryPlaylist.getSongs().size() > 0) {
@@ -125,7 +222,6 @@ public class Jukebox {
 					.get(0), 0, true);
 			return sc;
 		} else if (random) {
-			// TODO 800 templist => random looped
 			int size = currentPlaylist.getSongs().size() - 1;
 
 			int randomNum = currentSongInt;
@@ -159,6 +255,22 @@ public class Jukebox {
 		}
 	}
 
+	/**
+	 * Gets the PayPal settings.
+	 *
+	 * @return the PayPal settings
+	 */
+	public PayPalSettings getPayPalSettings() {
+		return payPalSettings;
+	}
+
+	/**
+	 * Gets the previous song.
+	 *
+	 * @param currentSongInt
+	 *            the current song int
+	 * @return the previous song
+	 */
 	public SongContainer getPreviousSong(int currentSongInt) {
 
 		if (mandatoryPlaylist != null
@@ -167,7 +279,6 @@ public class Jukebox {
 					.get(0), 0, true);
 			return sc;
 		} else if (random) {
-			// TODO 800 templist => random looped
 			int size = currentPlaylist.getSongs().size() - 1;
 
 			int randomNum = currentSongInt;
@@ -199,10 +310,20 @@ public class Jukebox {
 		}
 	}
 
+	/**
+	 * Gets the saved playlists.
+	 *
+	 * @return the saved playlists
+	 */
 	public SortedSet<Playlist> getSavedPlaylists() {
 		return savedPlaylists;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -211,14 +332,47 @@ public class Jukebox {
 		return result;
 	}
 
+	/**
+	 * Checks if is looped.
+	 *
+	 * @return true, if is looped
+	 */
 	public boolean isLooped() {
 		return looped;
 	}
 
+	/**
+	 * Checks if is random.
+	 *
+	 * @return true, if is random
+	 */
 	public boolean isRandom() {
 		return random;
 	}
 
+	/**
+	 * Removes the mandatory song.
+	 *
+	 * @param song
+	 *            the song
+	 * @param order
+	 *            the order
+	 */
+	public void removeMandatorySong(Song song, int order) {
+		if (mandatoryPlaylist != null
+				&& mandatoryPlaylist.getSongs().size() > 0) {
+			if (mandatoryPlaylist.getSongs().get(order).equals(song)) {
+				mandatoryPlaylist.removeSong(order);
+			}
+		}
+	}
+
+	/**
+	 * Removes the playlist.
+	 *
+	 * @param pl
+	 *            the pl
+	 */
 	public void removePlaylist(Playlist pl) {
 		Playlist removePlaylist = null;
 		for (Playlist playlist : savedPlaylists) {
@@ -231,38 +385,99 @@ public class Jukebox {
 
 	}
 
+	/**
+	 * Sets the account roles.
+	 *
+	 * @param accountRoles
+	 *            the account roles
+	 */
 	public void setAccountRoles(Map<Account, Role> accountRoles) {
 		this.accountRoles = accountRoles;
 	}
 
+	/**
+	 * Sets the current playlist.
+	 *
+	 * @param currentPlaylist
+	 *            the new current playlist
+	 */
 	public void setCurrentPlaylist(Playlist currentPlaylist) {
 		this.currentPlaylist = currentPlaylist;
 	}
 
+	/**
+	 * Sets the id.
+	 *
+	 * @param id
+	 *            the new id
+	 */
 	public void setId(long id) {
 		this.id = id;
 	}
 
+	/**
+	 * Sets the looped.
+	 *
+	 * @param looped
+	 *            the new looped
+	 */
 	public void setLooped(boolean looped) {
 		this.looped = looped;
 	}
 
+	/**
+	 * Sets the mandatory playlist.
+	 *
+	 * @param mandatoryPlaylist
+	 *            the new mandatory playlist
+	 */
 	public void setMandatoryPlaylist(Playlist mandatoryPlaylist) {
 		this.mandatoryPlaylist = mandatoryPlaylist;
 	}
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param name
+	 *            the new name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Sets the PayPal settings.
+	 *
+	 * @param payPalSettings
+	 *            the new PayPal settings
+	 */
+	public void setPayPalSettings(PayPalSettings payPalSettings) {
+		this.payPalSettings = payPalSettings;
+	}
+
+	/**
+	 * Sets the random.
+	 *
+	 * @param random
+	 *            the new random
+	 */
 	public void setRandom(boolean random) {
 		this.random = random;
 	}
 
+	/**
+	 * Sets the saved playlists.
+	 *
+	 * @param savedPlaylists
+	 *            the new saved playlists
+	 */
 	public void setSavedPlaylists(SortedSet<Playlist> savedPlaylists) {
 		this.savedPlaylists = savedPlaylists;
 	}
 
+	/**
+	 * Constructor.
+	 */
 	private void constructor() {
 		this.accountRoles = new HashMap<Account, Role>();
 		this.savedPlaylists = new TreeSet<Playlist>();
@@ -273,29 +488,5 @@ public class Jukebox {
 		this.mandatoryPlaylist = new Playlist("mandatory");
 		this.currentPlaylist = new Playlist("Unsaved playlist");
 		this.payPalSettings = new PayPalSettings();
-	}
-
-	public void removeMandatorySong(Song song, int order) {
-		if (mandatoryPlaylist != null
-				&& mandatoryPlaylist.getSongs().size() > 0) {
-			if (mandatoryPlaylist.getSongs().get(order).equals(song)) {
-				mandatoryPlaylist.removeSong(order);
-			}
-		}
-	}
-
-	public SongContainer getFirstSong() {
-		if (mandatoryPlaylist != null
-				&& mandatoryPlaylist.getSongs().size() > 0) {
-			SongContainer sc = new SongContainer(mandatoryPlaylist.getSongs()
-					.get(0), 0, true);
-			return sc;
-		} else if (currentPlaylist.getSongs().size() > 0) {
-			SongContainer sc = new SongContainer(currentPlaylist.getSongs()
-					.get(0), 0, false);
-			return sc;
-		}
-		return null;
-
 	}
 }
