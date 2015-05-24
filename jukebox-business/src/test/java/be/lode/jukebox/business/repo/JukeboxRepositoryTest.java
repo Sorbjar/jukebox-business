@@ -33,6 +33,7 @@ public class JukeboxRepositoryTest {
 	public static void tearDownAfterClass() throws Exception {
 		ResetDBSetupLiveData.run();
 	}
+
 	private Account acc;
 
 	private EntityManagerFactory emf;

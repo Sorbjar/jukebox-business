@@ -44,39 +44,8 @@ public class PlaylistTest {
 	}
 
 	@Test
-	public void testRemoveSong() {
-		Playlist pl = new Playlist("tst");
-		assertNotNull("Playlist songcollection not null", pl.getSongs());
-		assertEquals("Playlist is empty", 0, pl.getSongs().size());
-		Song s1 = new Song("aaa", "bbb", "ccc");
-		pl.addSong(s1);
-		assertTrue("Playlist is not empty", pl.getSongs().size() > 0);
-		assertEquals("Playlist is size 1 ", 1, pl.getSongs().size());
-		assertEquals("Playlist object on correct index ", s1, pl.getSongs()
-				.get(0));
-		Song s2 = new Song("aaaa", "bbbb", "cccc");
-		pl.addSong(s2);
-		assertTrue("Playlist is not empty", pl.getSongs().size() > 0);
-		assertEquals("Playlist is size 2 ", 2, pl.getSongs().size());
-		assertEquals("Playlist object on correct index ", s2, pl.getSongs()
-				.get(1));
-		pl.removeSong(0);
-		assertTrue("Playlist is not empty", pl.getSongs().size() > 0);
-		assertEquals("Playlist is size 1 ", 1, pl.getSongs().size());
-		assertEquals("Playlist object on correct index ", s2, pl.getSongs()
-				.get(0));
-		pl.removeSong(0);
-
-		assertNotNull("Playlist songcollection not null", pl.getSongs());
-		assertEquals("Playlist is empty", 0, pl.getSongs().size());
-	}
-
-	@Test
-	public void testToString() {
-		Playlist pl = new Playlist("tst");
-		assertEquals("Tostring", "tst", pl.toString());
-		pl.setName("newTest");
-		assertEquals("Tostring", "newTest", pl.toString());
+	public void testEquals() {
+		EqualsVerifier.forClass(Playlist.class).usingGetClass().verify();
 	}
 
 	@Test
@@ -122,8 +91,39 @@ public class PlaylistTest {
 	}
 
 	@Test
-	public void testEquals() {
-		EqualsVerifier.forClass(Playlist.class).usingGetClass().verify();
+	public void testRemoveSong() {
+		Playlist pl = new Playlist("tst");
+		assertNotNull("Playlist songcollection not null", pl.getSongs());
+		assertEquals("Playlist is empty", 0, pl.getSongs().size());
+		Song s1 = new Song("aaa", "bbb", "ccc");
+		pl.addSong(s1);
+		assertTrue("Playlist is not empty", pl.getSongs().size() > 0);
+		assertEquals("Playlist is size 1 ", 1, pl.getSongs().size());
+		assertEquals("Playlist object on correct index ", s1, pl.getSongs()
+				.get(0));
+		Song s2 = new Song("aaaa", "bbbb", "cccc");
+		pl.addSong(s2);
+		assertTrue("Playlist is not empty", pl.getSongs().size() > 0);
+		assertEquals("Playlist is size 2 ", 2, pl.getSongs().size());
+		assertEquals("Playlist object on correct index ", s2, pl.getSongs()
+				.get(1));
+		pl.removeSong(0);
+		assertTrue("Playlist is not empty", pl.getSongs().size() > 0);
+		assertEquals("Playlist is size 1 ", 1, pl.getSongs().size());
+		assertEquals("Playlist object on correct index ", s2, pl.getSongs()
+				.get(0));
+		pl.removeSong(0);
+
+		assertNotNull("Playlist songcollection not null", pl.getSongs());
+		assertEquals("Playlist is empty", 0, pl.getSongs().size());
+	}
+
+	@Test
+	public void testToString() {
+		Playlist pl = new Playlist("tst");
+		assertEquals("Tostring", "tst", pl.toString());
+		pl.setName("newTest");
+		assertEquals("Tostring", "newTest", pl.toString());
 	}
 
 }

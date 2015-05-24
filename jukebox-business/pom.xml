@@ -6,7 +6,7 @@
 	<groupId>be.lode.jukebox</groupId>
 	<artifactId>jukebox-business</artifactId>
 	<packaging>jar</packaging>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>jukebox-business</name>
 
 	<properties>
@@ -58,7 +58,7 @@
 		<dependency>
 			<groupId>be.lode.general</groupId>
 			<artifactId>repository</artifactId>
-			<version>0.0.1</version>
+			<version>1.0.0</version>
 		</dependency>
 
 	</dependencies>

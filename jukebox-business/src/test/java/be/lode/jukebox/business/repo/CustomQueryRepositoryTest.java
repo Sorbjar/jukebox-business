@@ -18,7 +18,6 @@ import be.lode.setup.ResetDBSetupTestData;
 
 public class CustomQueryRepositoryTest {
 
-	private EntityManagerFactory emf;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		ResetDBSetupTestData.run();
@@ -28,6 +27,9 @@ public class CustomQueryRepositoryTest {
 	public static void tearDownAfterClass() throws Exception {
 		ResetDBSetupLiveData.run();
 	}
+
+	private EntityManagerFactory emf;
+
 	@Before
 	public void setUp() throws Exception {
 		emf = Persistence.createEntityManagerFactory("jukebox-business");
@@ -45,6 +47,19 @@ public class CustomQueryRepositoryTest {
 	}
 
 	@Test
+	public void testGetAllTitles() {
+		CustomQueryRepository repo = new CustomQueryRepository(emf);
+
+		List<String> tlist = repo.getAllTitles();
+		assertNotNull(tlist);
+		assertTrue(tlist.size() > 0);
+		for (String title : tlist) {
+			assertNotNull(title);
+		}
+
+	}
+
+	@Test
 	public void testGetAllTitlesArtist() {
 		CustomQueryRepository repo = new CustomQueryRepository(emf);
 		List<String> alist = repo.getAllArtists();
@@ -58,19 +73,6 @@ public class CustomQueryRepositoryTest {
 				assertNotNull(title);
 			}
 		}
-	}
-
-	@Test
-	public void testGetAllTitles() {
-		CustomQueryRepository repo = new CustomQueryRepository(emf);
-
-		List<String> tlist = repo.getAllTitles();
-		assertNotNull(tlist);
-		assertTrue(tlist.size() > 0);
-		for (String title : tlist) {
-			assertNotNull(title);
-		}
-
 	}
 
 }

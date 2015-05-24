@@ -20,6 +20,7 @@ public class IntegerComparatorTest {
 	public static void tearDownAfterClass() throws Exception {
 		ResetDBSetupLiveData.run();
 	}
+
 	@Test
 	public void testCompare() {
 		IntegerComparator ic = new IntegerComparator();
@@ -28,62 +29,61 @@ public class IntegerComparatorTest {
 		assertNotEquals(-1, ic.compare(o1, o2));
 		assertEquals(0, ic.compare(o1, o2));
 		assertNotEquals(1, ic.compare(o1, o2));
-		
+
 		o1 = 5;
 		o2 = 5;
 		assertNotEquals(-1, ic.compare(o1, o2));
 		assertEquals(0, ic.compare(o1, o2));
 		assertNotEquals(1, ic.compare(o1, o2));
-		
+
 		o1 = -5;
 		o2 = -5;
 		assertNotEquals(-1, ic.compare(o1, o2));
 		assertEquals(0, ic.compare(o1, o2));
 		assertNotEquals(1, ic.compare(o1, o2));
-		
+
 		o1 = -5;
 		o2 = -3;
 		assertEquals(-1, ic.compare(o1, o2));
 		assertNotEquals(0, ic.compare(o1, o2));
 		assertNotEquals(1, ic.compare(o1, o2));
-		
+
 		o1 = -5;
 		o2 = 0;
 		assertEquals(-1, ic.compare(o1, o2));
 		assertNotEquals(0, ic.compare(o1, o2));
 		assertNotEquals(1, ic.compare(o1, o2));
-		
+
 		o1 = -5;
 		o2 = 5;
 		assertEquals(-1, ic.compare(o1, o2));
 		assertNotEquals(0, ic.compare(o1, o2));
 		assertNotEquals(1, ic.compare(o1, o2));
-		
+
 		o1 = -5;
 		o2 = -7;
 		assertNotEquals(-1, ic.compare(o1, o2));
 		assertNotEquals(0, ic.compare(o1, o2));
 		assertEquals(1, ic.compare(o1, o2));
-		
-		
+
 		o1 = 5;
 		o2 = 3;
 		assertNotEquals(-1, ic.compare(o1, o2));
 		assertNotEquals(0, ic.compare(o1, o2));
 		assertEquals(1, ic.compare(o1, o2));
-		
+
 		o1 = 5;
 		o2 = 0;
 		assertNotEquals(-1, ic.compare(o1, o2));
 		assertNotEquals(0, ic.compare(o1, o2));
 		assertEquals(1, ic.compare(o1, o2));
-		
+
 		o1 = 5;
 		o2 = -5;
 		assertNotEquals(-1, ic.compare(o1, o2));
 		assertNotEquals(0, ic.compare(o1, o2));
 		assertEquals(1, ic.compare(o1, o2));
-		
+
 		o1 = 5;
 		o2 = 7;
 		assertEquals(-1, ic.compare(o1, o2));

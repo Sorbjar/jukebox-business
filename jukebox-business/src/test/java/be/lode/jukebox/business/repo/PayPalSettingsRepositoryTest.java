@@ -48,17 +48,6 @@ public class PayPalSettingsRepositoryTest {
 	}
 
 	@Test
-	public void testPayPalSettingsRepository() {
-		PayPalSettingsRepository repo = new PayPalSettingsRepository(emf);
-		List<PayPalSettings> list = repo.getList();
-		assertNotNull("getList not null", list);
-		assertTrue("getList - list not empty", list.size() > 0);
-		PayPalSettings o = new PayPalSettings();
-		o = repo.save(o);
-		assertTrue("save PayPalSettings", repo.getList().contains(o));
-	}
-
-	@Test
 	public void testDelete() {
 		Repository<PayPalSettings> repo = new PayPalSettingsRepository(emf);
 		PayPalSettings o = new PayPalSettings();
@@ -92,6 +81,17 @@ public class PayPalSettingsRepositoryTest {
 		Repository<PayPalSettings> repo = new PayPalSettingsRepository(emf);
 		assertNotNull("getList not null", repo.getList());
 		assertTrue("getList - list not empty", repo.getList().size() > 0);
+	}
+
+	@Test
+	public void testPayPalSettingsRepository() {
+		PayPalSettingsRepository repo = new PayPalSettingsRepository(emf);
+		List<PayPalSettings> list = repo.getList();
+		assertNotNull("getList not null", list);
+		assertTrue("getList - list not empty", list.size() > 0);
+		PayPalSettings o = new PayPalSettings();
+		o = repo.save(o);
+		assertTrue("save PayPalSettings", repo.getList().contains(o));
 	}
 
 	@Test

@@ -25,53 +25,31 @@ public class JukeboxTest {
 	}
 
 	@Test
-	public void testGetNextSong() {
-		Account acc = new Account("testGetNextSonga", "testGetNextSongb",
-				"testGetNextSongc", "testGetNextSongd", "testGetNextSonge");
-		Jukebox o = new Jukebox("testGetNextSong", acc);
+	public void testAddAccountRole() {
 
-		String artist = "s1" + "artist";
-		String title = "s1" + "title";
-		String path = "s1" + "path";
+		Account acc = new Account("a", "b", "c", "d", "e");
+		Jukebox o = new Jukebox("jbName", acc);
 
-		Song s1 = new Song(artist, title, path);
-
-		artist = "s2" + "artist";
-		title = "s2" + "title";
-		path = "s2" + "path";
-
-		Song s2 = new Song(artist, title, path);
-
-		artist = "s3" + "artist";
-		title = "s3" + "title";
-		path = "s3" + "path";
-
-		Song s3 = new Song(artist, title, path);
-
-		o.getCurrentPlaylist().addSong(s1);
-		o.getCurrentPlaylist().addSong(s2);
-		o.getCurrentPlaylist().addSong(s3);
-
-		assertEquals(s2, o.getNextSong(0).getSong());
-		assertEquals(1, o.getNextSong(0).getPlaylistOrder());
-		assertFalse(o.getNextSong(0).getMandatory());
-
-		artist = "s4" + "artist";
-		title = "s4" + "title";
-		path = "s4" + "path";
-
-		Song s4 = new Song(artist, title, path);
-
-		o.getMandatoryPlaylist().addSong(s4);
-
-		assertEquals(s4, o.getNextSong(0).getSong());
-
-		assertEquals(0, o.getNextSong(0).getPlaylistOrder());
-		assertTrue(o.getNextSong(0).getMandatory());
-		assertEquals(s4, o.getNextSong(1).getSong());
-		assertEquals(s4, o.getNextSong(2).getSong());
+		Account acc2 = new Account("a2", "b2", "c2", "d2", "e2");
+		assertEquals("starting number of accounts 1", 1, o.getAccountRoles()
+				.size());
+		assertEquals("starting account is of type administrator",
+				Role.Administrator, o.getAccountRoles().get(acc));
+		o.addAccountRole(acc2, Role.Manager);
+		assertEquals("current number of accounts 2", 2, o.getAccountRoles()
+				.size());
+		assertEquals("new account is of type Manager", Role.Manager, o
+				.getAccountRoles().get(acc2));
+		o.addAccountRole(acc2, Role.Administrator);
+		assertEquals("new account is of type Administrator",
+				Role.Administrator, o.getAccountRoles().get(acc2));
 	}
-	
+
+	@Test
+	public void testEquals() {
+		EqualsVerifier.forClass(Jukebox.class).usingGetClass().verify();
+	}
+
 	@Test
 	public void testGetFirstSong() {
 		Account acc = new Account("testGetNextSonga", "testGetNextSongb",
@@ -120,6 +98,54 @@ public class JukeboxTest {
 	}
 
 	@Test
+	public void testGetNextSong() {
+		Account acc = new Account("testGetNextSonga", "testGetNextSongb",
+				"testGetNextSongc", "testGetNextSongd", "testGetNextSonge");
+		Jukebox o = new Jukebox("testGetNextSong", acc);
+
+		String artist = "s1" + "artist";
+		String title = "s1" + "title";
+		String path = "s1" + "path";
+
+		Song s1 = new Song(artist, title, path);
+
+		artist = "s2" + "artist";
+		title = "s2" + "title";
+		path = "s2" + "path";
+
+		Song s2 = new Song(artist, title, path);
+
+		artist = "s3" + "artist";
+		title = "s3" + "title";
+		path = "s3" + "path";
+
+		Song s3 = new Song(artist, title, path);
+
+		o.getCurrentPlaylist().addSong(s1);
+		o.getCurrentPlaylist().addSong(s2);
+		o.getCurrentPlaylist().addSong(s3);
+
+		assertEquals(s2, o.getNextSong(0).getSong());
+		assertEquals(1, o.getNextSong(0).getPlaylistOrder());
+		assertFalse(o.getNextSong(0).getMandatory());
+
+		artist = "s4" + "artist";
+		title = "s4" + "title";
+		path = "s4" + "path";
+
+		Song s4 = new Song(artist, title, path);
+
+		o.getMandatoryPlaylist().addSong(s4);
+
+		assertEquals(s4, o.getNextSong(0).getSong());
+
+		assertEquals(0, o.getNextSong(0).getPlaylistOrder());
+		assertTrue(o.getNextSong(0).getMandatory());
+		assertEquals(s4, o.getNextSong(1).getSong());
+		assertEquals(s4, o.getNextSong(2).getSong());
+	}
+
+	@Test
 	public void testGetPreviousSong() {
 		Account acc = new Account("testGetPreviousSonga",
 				"testGetPreviousSongb", "testGetPreviousSongc",
@@ -160,39 +186,12 @@ public class JukeboxTest {
 
 		o.getMandatoryPlaylist().addSong(s4);
 
-		
 		assertEquals(s4, o.getPreviousSong(0).getSong());
 
 		assertEquals(0, o.getPreviousSong(0).getPlaylistOrder());
 		assertTrue(o.getPreviousSong(0).getMandatory());
 		assertEquals(s4, o.getPreviousSong(1).getSong());
 		assertEquals(s4, o.getPreviousSong(2).getSong());
-	}
-
-	@Test
-	public void testAddAccountRole() {
-
-		Account acc = new Account("a", "b", "c", "d", "e");
-		Jukebox o = new Jukebox("jbName", acc);
-
-		Account acc2 = new Account("a2", "b2", "c2", "d2", "e2");
-		assertEquals("starting number of accounts 1", 1, o.getAccountRoles()
-				.size());
-		assertEquals("starting account is of type administrator",
-				Role.Administrator, o.getAccountRoles().get(acc));
-		o.addAccountRole(acc2, Role.Manager);
-		assertEquals("current number of accounts 2", 2, o.getAccountRoles()
-				.size());
-		assertEquals("new account is of type Manager", Role.Manager, o
-				.getAccountRoles().get(acc2));
-		o.addAccountRole(acc2, Role.Administrator);
-		assertEquals("new account is of type Administrator",
-				Role.Administrator, o.getAccountRoles().get(acc2));
-	}
-
-	@Test
-	public void testEquals() {
-		EqualsVerifier.forClass(Jukebox.class).usingGetClass().verify();
 	}
 
 	@Test

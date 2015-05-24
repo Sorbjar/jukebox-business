@@ -46,7 +46,7 @@ public class CurrencyRepositoryTest {
 		List<Currency> list = repo.getList();
 		assertNotNull("getList not null", list);
 		assertTrue("getList - list not empty", list.size() > 0);
-		Currency o = new Currency("ILS","Israeli New Sheqel");
+		Currency o = new Currency("ILS", "Israeli New Sheqel");
 		o = repo.save(o);
 		assertTrue("save Currency", repo.getList().contains(o));
 	}
@@ -54,7 +54,7 @@ public class CurrencyRepositoryTest {
 	@Test
 	public void testDelete() {
 		Repository<Currency> repo = new CurrencyRepository(emf);
-		Currency o = new Currency("ILS","Israeli New Sheqel");
+		Currency o = new Currency("ILS", "Israeli New Sheqel");
 		o = repo.save(o);
 		assertTrue("save Currency", repo.getList().contains(o));
 		assertEquals("save Currency", o, repo.find(o));
@@ -66,7 +66,7 @@ public class CurrencyRepositoryTest {
 	@Test
 	public void testFindClassOfTObject() {
 		Repository<Currency> repo = new CurrencyRepository(emf);
-		Currency o = new Currency("ILS","Israeli New Sheqel");
+		Currency o = new Currency("ILS", "Israeli New Sheqel");
 		o = repo.save(o);
 		assertEquals("find Currency", o, repo.find(o));
 	}
@@ -74,7 +74,7 @@ public class CurrencyRepositoryTest {
 	@Test
 	public void testFindT() {
 		Repository<Currency> repo = new CurrencyRepository(emf);
-		Currency o = new Currency("ILS","Israeli New Sheqel");
+		Currency o = new Currency("ILS", "Israeli New Sheqel");
 		o = repo.save(o);
 		assertEquals("find Currency", o, repo.find(Currency.class, emf
 				.getPersistenceUnitUtil().getIdentifier(o)));
@@ -93,7 +93,7 @@ public class CurrencyRepositoryTest {
 		List<Currency> list = repo.getList();
 		assertNotNull("getList not null", list);
 		assertTrue("getList - list not empty", list.size() > 0);
-		Currency o = new Currency("ILS","Israeli New Sheqel");
+		Currency o = new Currency("ILS", "Israeli New Sheqel");
 		repo.save(o);
 		assertTrue("save Currency", repo.getList().contains(o));
 	}
@@ -101,7 +101,7 @@ public class CurrencyRepositoryTest {
 	@Test
 	public void testSave() {
 		Repository<Currency> repo = new CurrencyRepository(emf);
-		Currency o = new Currency("ILS","Israeli New Sheqel");
+		Currency o = new Currency("ILS", "Israeli New Sheqel");
 		o = repo.save(o);
 		assertTrue("save Currency", repo.getList().contains(o));
 		assertEquals("save Currency", o, repo.find(o));
