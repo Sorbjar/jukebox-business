@@ -12,7 +12,8 @@ import be.lode.jukebox.business.repo.AccountRepository;
 import be.lode.jukebox.business.repo.CurrencyRepository;
 import be.lode.jukebox.business.repo.JukeboxRepository;
 import be.lode.jukebox.business.repo.OAuthApiInfoRepository;
-//TODO 700 extract to another project for setup
+
+
 public class SetupLiveData {
 
 	public static void main(String[] args) {
